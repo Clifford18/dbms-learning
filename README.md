@@ -1,2 +1,2 @@
-#Database Management
-Database Design Challenges
+# Database Management System
+Series of specific Design Challenges
