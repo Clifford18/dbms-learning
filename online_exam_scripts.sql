@@ -8,7 +8,7 @@ USE `online_exam`;
 -- stream*
 -- classes*
 
--- subjects
+-- subjects*
 -- teachers
 -- -- teacher_class
 
@@ -71,6 +71,7 @@ INSERT INTO classes (class_name)
             ('Class 1');
 
 DROP TABLE IF EXISTS `subjects`;
+
 CREATE TABLE `subjects` (
    `subject_id`	bigint	 		NOT NULL AUTO_INCREMENT,
    `subject_name` 	varchar(30) 	NOT NULL,
@@ -91,4 +92,21 @@ CREATE TABLE `subjects` (
             ('CRE'),
             ('Home Science'),
             ('PE');
+ 
+DROP TABLE IF EXISTS `teachers`;
+
+CREATE TABLE `teachers` (
+   `teacher_id`	bigint	 		NOT NULL AUTO_INCREMENT,
+   `first_name` 	varchar(30) 	NOT NULL,
+   `last_name` 	varchar(30) 	NOT NULL,
+   `designation` 	varchar(30) 	DEFAULT NULL,
+   `gender` 	varchar(30) 	NOT NULL,
+   `id_number` 	varchar(30) 	NOT NULL,
+   `phone_number` 	varchar(30) 	NOT NULL,
+   `email_address` 	varchar(30) 	NOT NULL,
+   `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`teacher_id`),
+   UNIQUE KEY `uindex_teachers_id_number` (`id_number`)
+ );
  
