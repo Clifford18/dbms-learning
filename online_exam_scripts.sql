@@ -8,7 +8,7 @@ USE `online_exam`;
 -- stream*
 -- classes*
 
--- subjects*
+-- subjects
 -- teachers
 -- -- teacher_class
 
@@ -32,6 +32,7 @@ CREATE TABLE `streams` (
    PRIMARY KEY (`stream_id`),
    UNIQUE KEY `uindex_streams_stream_name` (`stream_name`)
  );
+ 
  INSERT INTO streams (stream_name) 
 		VALUES 
 			('East'),
@@ -45,8 +46,6 @@ CREATE TABLE `streams` (
  
 DROP TABLE IF EXISTS `classes`;
 
-DROP TABLE IF EXISTS `classes`;
-
 CREATE TABLE `classes` (
    `class_id`	bigint	 		NOT NULL AUTO_INCREMENT,
    `class_name` 	varchar(30) 	NOT NULL,
@@ -56,6 +55,7 @@ CREATE TABLE `classes` (
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY (`class_id`)
  );
+ 
  INSERT INTO classes (class_name, stream_name) 
 		VALUES 
 			('Class 8','West'),('Class 8','East'),
@@ -80,3 +80,15 @@ CREATE TABLE `subjects` (
    PRIMARY KEY (`subject_id`),
    UNIQUE KEY `uindex_subjects_subject_name` (`subject_name`)
  );
+ 
+ INSERT INTO subjects (subject_name) 
+		VALUES 
+			('Maths'),
+			('English'),
+            ('Kiswahili'),
+            ('Science'),
+            ('Social Studies'),
+            ('CRE'),
+            ('Home Science'),
+            ('PE');
+ 
