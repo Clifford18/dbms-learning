@@ -43,7 +43,7 @@ CREATE TABLE `streams` (
             ('Blue'),
             ('Green');
  
-DROP TABLE IF EXISTS `terms`;
+DROP TABLE IF EXISTS `classes`;
 
 DROP TABLE IF EXISTS `classes`;
 
