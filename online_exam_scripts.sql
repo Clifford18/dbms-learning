@@ -9,7 +9,7 @@ USE `online_exam`;
 -- classes*
 
 -- subjects*
--- teachers
+-- teachers*
 -- -- teacher_class
 
 -- parents
@@ -33,7 +33,7 @@ CREATE TABLE `streams` (
    UNIQUE KEY `uindex_streams_stream_name` (`stream_name`)
  );
  
- INSERT INTO streams (stream_name) 
+INSERT INTO streams (stream_name) 
 		VALUES 
 			('East'),
 			('West'),
@@ -56,7 +56,7 @@ CREATE TABLE `classes` (
    PRIMARY KEY (`class_id`)
  );
  
- INSERT INTO classes (class_name, stream_name) 
+INSERT INTO classes (class_name, stream_name) 
 		VALUES 
 			('Class 8','West'),('Class 8','East'),
             ('Class 7','West'),('Class 7','East'),
@@ -82,7 +82,7 @@ CREATE TABLE `subjects` (
    UNIQUE KEY `uindex_subjects_subject_name` (`subject_name`)
  );
  
- INSERT INTO subjects (subject_name) 
+INSERT INTO subjects (subject_name) 
 		VALUES 
 			('Maths'),
 			('English'),
@@ -109,4 +109,18 @@ CREATE TABLE `teachers` (
    PRIMARY KEY (`teacher_id`),
    UNIQUE KEY `uindex_teachers_id_number` (`id_number`)
  );
+ 
+INSERT INTO teachers (first_name, last_name, designation,gender,id_number,phone_number,email_address)
+      VALUES
+			('Firstname1', 'Lastname1', 'HeadMaster','Male','12345A','254712123456','f1l1@gmail.com'),
+            ('Firstname2', 'Lastname2', 'Deputy-HeadMaster','Female','12345B','254713123456','f2l2@gmail.com'),
+            ('Firstname3', 'Lastname3', 'Games Master','Male','12345C','254714123456','f3l3@gmail.com'),
+            ('Firstname4', 'Lastname4', 'Class Teacher 8','Male','12345D','254715123456','f4l4@gmail.com'),
+            ('Firstname5', 'Lastname5', 'Class Teacher 7','Female','12345E','254716123456','f5l5@gmail.com'),
+            ('Firstname6', 'Lastname6', 'Class Teacher 6','FeMale','12345F','254717123456','f6l6@gmail.com'),
+            ('Firstname7', 'Lastname7', 'Class Teacher 5','Male','12345G','254718123456','f7l7@gmail.com'),
+            ('Firstname8', 'Lastname8', 'Class Teacher 4','Female','12345H','254719123456','f8l8@gmail.com'),
+            ('Firstname9', 'Lastname9', 'Class Teacher 3','Male','12345I','254720123456','f9l9@gmail.com'),
+            ('Firstname10', 'Lastname10', 'Class Teacher 2','Male','12345J','254721123456','f10l10@gmail.com'),
+            ('Firstname11', 'Lastname11', 'Class Teacher 1','Female','12345K','254722123456','f11l11@gmail.com');
  
