@@ -13,7 +13,7 @@ USE `online_exam`;
 -- -- teacher_class*
 
 -- parents*
--- pupils
+-- pupils*
 -- --parent_pupil
 
 -- terms
@@ -161,6 +161,22 @@ CREATE TABLE `parents` (
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    PRIMARY KEY (`parent_id`),
    UNIQUE KEY `uindex_parents_id_number` (`id_number`)
+ );
+ 
+DROP TABLE IF EXISTS `pupils`;
+
+CREATE TABLE `pupils` (
+   `pupil_id`	bigint	 		NOT NULL AUTO_INCREMENT,
+   `class_id` 		bigint  			NOT NULL,
+   `first_name` 	varchar(30) 	NOT NULL,
+   `last_name` 	varchar(30) 	NOT NULL,
+   `gender` 	varchar(30) 	NOT NULL,
+   `date_of birth` 	time	NOT NULL,
+   `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`pupil_id`),
+    KEY `classes_pupils_fk` (`class_id`),
+   CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE
  );
  
  
