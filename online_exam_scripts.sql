@@ -197,4 +197,18 @@ CREATE TABLE `pupil_parent` (
    CONSTRAINT `fk_parents_pupil_parent` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE CASCADE ON UPDATE CASCADE
  ) ;
  
+ DROP TABLE IF EXISTS `terms`;
+ 
+ CREATE TABLE `terms` (
+   `term_id`	bigint	 		NOT NULL AUTO_INCREMENT,
+   `term_name` 	varchar(30) 	NOT NULL,
+   `term_description` 	varchar(30) 	NOT NULL,
+   `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`term_id`),
+   UNIQUE KEY `uindex_terms_term_name` (`term_name`)
+ );
+ 
+INSERT INTO terms (term_name, term_description) 
+	VALUES ('Term12021','04January2021-15April2021');
  
