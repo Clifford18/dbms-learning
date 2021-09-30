@@ -10,9 +10,9 @@ USE `online_exam`;
 
 -- subjects*
 -- teachers*
--- -- teacher_class
+-- -- teacher_class*
 
--- parents
+-- parents*
 -- pupils
 -- --parent_pupil
 
@@ -123,6 +123,8 @@ INSERT INTO teachers (first_name, last_name, designation,gender,id_number,phone_
             ('Firstname9', 'Lastname9', 'Class Teacher 3','Male','12345I','254720123456','f9l9@gmail.com'),
             ('Firstname10', 'Lastname10', 'Class Teacher 2','Male','12345J','254721123456','f10l10@gmail.com'),
             ('Firstname11', 'Lastname11', 'Class Teacher 1','Female','12345K','254722123456','f11l11@gmail.com');
+
+DROP TABLE IF EXISTS `teacher_class`;
             
 CREATE TABLE `teacher_class` (
    `teacher_class_id` 			bigint 			NOT NULL AUTO_INCREMENT,
@@ -144,5 +146,21 @@ CREATE TABLE `teacher_class` (
    CONSTRAINT `fk_subjects_teacher_class` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE
    
  ) ;
+ 
+DROP TABLE IF EXISTS `parents`;
+
+CREATE TABLE `parents` (
+   `parent_id`	bigint	 		NOT NULL AUTO_INCREMENT,
+   `first_name` 	varchar(30) 	NOT NULL,
+   `last_name` 	varchar(30) 	NOT NULL,
+   `gender` 	varchar(30) 	NOT NULL,
+   `id_number` 	varchar(30) 	NOT NULL,
+   `phone_number` 	varchar(30) 	NOT NULL,
+   `email_address` 	varchar(30) 	NOT NULL,
+   `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   PRIMARY KEY (`parent_id`),
+   UNIQUE KEY `uindex_parents_id_number` (`id_number`)
+ );
  
  
