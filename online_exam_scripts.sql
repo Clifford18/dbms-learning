@@ -123,4 +123,26 @@ INSERT INTO teachers (first_name, last_name, designation,gender,id_number,phone_
             ('Firstname9', 'Lastname9', 'Class Teacher 3','Male','12345I','254720123456','f9l9@gmail.com'),
             ('Firstname10', 'Lastname10', 'Class Teacher 2','Male','12345J','254721123456','f10l10@gmail.com'),
             ('Firstname11', 'Lastname11', 'Class Teacher 1','Female','12345K','254722123456','f11l11@gmail.com');
+            
+CREATE TABLE `teacher_class` (
+   `teacher_class_id` 			bigint 			NOT NULL AUTO_INCREMENT,
+   `class_id` 		bigint  			NOT NULL,
+   `teacher_id` 		bigint  			NOT NULL,
+   `subject_id` 		bigint  			NOT NULL,
+   `description`	varchar(50) 	NOT NULL,
+   `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
+   PRIMARY KEY (`teacher_class_id`),
+   KEY `classes_teacher_class_fk` (`class_id`),
+   CONSTRAINT `fk_classes_teacher_class` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `teachers_teacher_class_fk` (`teacher_id`),
+   CONSTRAINT `fk_teachers_teacher_class` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `subjects_teacher_class_fk` (`subject_id`),
+   CONSTRAINT `fk_subjects_teacher_class` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE
+   
+ ) ;
+ 
  
