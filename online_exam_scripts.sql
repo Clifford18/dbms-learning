@@ -258,4 +258,18 @@ DROP TABLE IF EXISTS `exams`;
    CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `terms` (`term_name`) ON DELETE CASCADE ON UPDATE CASCADE
    ) ;
  
-				
+DROP TABLE IF EXISTS `questions`;
+  
+ CREATE TABLE `questions` (
+   `question_id` 			bigint 			NOT NULL AUTO_INCREMENT,
+   `exam_id` 		bigint  			NOT NULL,
+   `question_description`	varchar(50) 	NOT NULL,
+   `marks`	varchar(50) 	NOT NULL,
+   `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
+   PRIMARY KEY (`question_id`),
+   
+   KEY `exams_questions_fk` (`exam_id`),
+   CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE CASCADE ON UPDATE CASCADE
+   ) ;				
