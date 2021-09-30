@@ -20,7 +20,7 @@ USE `online_exam`;
 -- exams*
 -- questions*
 -- choices*
--- answers
+-- answers*
 DROP TABLE IF EXISTS `streams`;
 
 CREATE TABLE `streams` (
@@ -288,4 +288,27 @@ DROP TABLE IF EXISTS `questions`;
    
    KEY `questions_choices_fk` (`question_id`),
    CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
+   ) ;	
+
+DROP TABLE IF EXISTS `answers`;
+   
+    CREATE TABLE `answers` (
+   `answer_id` 			bigint 			NOT NULL AUTO_INCREMENT,
+   `pupil_id` 		bigint  			NOT NULL,
+   `question_id` 		bigint  			NOT NULL,
+   `choice_id` 		bigint  			NOT NULL,
+   `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
+   PRIMARY KEY (`answer_id`),
+   
+   KEY `pupils_answers_fk` (`pupil_id`),
+   CONSTRAINT `fk_pupils_answers_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `questions_answers_fk` (`question_id`),
+   CONSTRAINT `fk_questions_answers_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  
+   KEY `choices_answers_fk` (`choice_id`),
+   CONSTRAINT `fk_choices_answers_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`choice_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  
    ) ;	
