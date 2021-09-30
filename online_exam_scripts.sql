@@ -18,7 +18,7 @@ USE `online_exam`;
 
 -- terms*
 -- exams*
--- questions
+-- questions*
 -- choices
 -- answers
 DROP TABLE IF EXISTS `streams`;
@@ -226,7 +226,9 @@ CREATE TABLE `pupil_parent` (
  
 INSERT INTO terms (term_name, term_description) 
 	VALUES ('Term12021','04January2021-15April2021');
-    
+ 
+DROP TABLE IF EXISTS `exams`;
+  
  CREATE TABLE `exams` (
    `exam_id` 			bigint 			NOT NULL AUTO_INCREMENT,
    `teacher_id` 		bigint  			NOT NULL,
