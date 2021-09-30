@@ -14,7 +14,7 @@ USE `online_exam`;
 
 -- parents*
 -- pupils*
--- --parent_pupil
+-- --parent_pupil*
 
 -- terms
 -- exams 
@@ -178,5 +178,23 @@ CREATE TABLE `pupils` (
     KEY `classes_pupils_fk` (`class_id`),
    CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE
  );
+ 
+ DROP TABLE IF EXISTS `pupil_parent`;
+            
+CREATE TABLE `pupil_parent` (
+   `pupil_parent_id` 			bigint 			NOT NULL AUTO_INCREMENT,
+   `pupil_id` 		bigint  			NOT NULL,
+   `parent_id` 		bigint  			NOT NULL,
+   `description`	varchar(50) 	NOT NULL,
+   `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
+   PRIMARY KEY (`pupil_parent_id`),
+   KEY `pupils_pupil_parent_fk` (`pupil_id`),
+   CONSTRAINT `fk_pupils_pupil_parent` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `parents_pupil_parent_fk` (`parent_id`),
+   CONSTRAINT `fk_parents_pupil_parent` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE CASCADE ON UPDATE CASCADE
+ ) ;
  
  
