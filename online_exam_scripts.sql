@@ -19,7 +19,7 @@ USE `online_exam`;
 -- terms*
 -- exams*
 -- questions*
--- choices
+-- choices*
 -- answers
 DROP TABLE IF EXISTS `streams`;
 
@@ -272,4 +272,20 @@ DROP TABLE IF EXISTS `questions`;
    
    KEY `exams_questions_fk` (`exam_id`),
    CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE CASCADE ON UPDATE CASCADE
-   ) ;				
+   ) ;	
+   
+   DROP TABLE IF EXISTS `choices`;
+   
+    CREATE TABLE `choices` (
+   `choice_id` 			bigint 			NOT NULL AUTO_INCREMENT,
+   `question_id` 		bigint  			NOT NULL,
+   `choice_label`	varchar(50) 	NOT NULL,
+   `remark`	varchar(50) 	NOT NULL,
+   `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
+   PRIMARY KEY (`choice_id`),
+   
+   KEY `questions_choices_fk` (`question_id`),
+   CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
+   ) ;	
