@@ -16,8 +16,8 @@ USE `online_exam`;
 -- pupils*
 -- --parent_pupil*
 
--- terms
--- exams 
+-- terms*
+-- exams*
 -- questions
 -- choices
 -- answers
@@ -29,7 +29,9 @@ CREATE TABLE `streams` (
    `stream_description` 	varchar(30) 	DEFAULT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`stream_id`),
+   
    UNIQUE KEY `uindex_streams_stream_name` (`stream_name`)
  );
  
@@ -53,6 +55,7 @@ CREATE TABLE `classes` (
    `class_description` 	varchar(30) 	DEFAULT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`class_id`)
  );
  
@@ -78,7 +81,9 @@ CREATE TABLE `subjects` (
    `subject_description` 	varchar(30) 	DEFAULT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`subject_id`),
+   
    UNIQUE KEY `uindex_subjects_subject_name` (`subject_name`)
  );
  
@@ -106,7 +111,9 @@ CREATE TABLE `teachers` (
    `email_address` 	varchar(30) 	NOT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`teacher_id`),
+   
    UNIQUE KEY `uindex_teachers_id_number` (`id_number`)
  );
  
@@ -136,14 +143,15 @@ CREATE TABLE `teacher_class` (
    `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    
    PRIMARY KEY (`teacher_class_id`),
+   
    KEY `classes_teacher_class_fk` (`class_id`),
-   CONSTRAINT `fk_classes_teacher_class` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT `fk_classes_teacher_class_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE,
    
    KEY `teachers_teacher_class_fk` (`teacher_id`),
-   CONSTRAINT `fk_teachers_teacher_class` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT `fk_teachers_teacher_class_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
    
    KEY `subjects_teacher_class_fk` (`subject_id`),
-   CONSTRAINT `fk_subjects_teacher_class` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE
+   CONSTRAINT `fk_subjects_teacher_class_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE
    
  ) ;
  
@@ -159,7 +167,9 @@ CREATE TABLE `parents` (
    `email_address` 	varchar(30) 	NOT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`parent_id`),
+   
    UNIQUE KEY `uindex_parents_id_number` (`id_number`)
  );
  
@@ -174,8 +184,10 @@ CREATE TABLE `pupils` (
    `date_of birth` 	time	NOT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`pupil_id`),
-    KEY `classes_pupils_fk` (`class_id`),
+    
+   KEY `classes_pupils_fk` (`class_id`),
    CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE
  );
  
@@ -190,11 +202,12 @@ CREATE TABLE `pupil_parent` (
    `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
    
    PRIMARY KEY (`pupil_parent_id`),
+   
    KEY `pupils_pupil_parent_fk` (`pupil_id`),
-   CONSTRAINT `fk_pupils_pupil_parent` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT `fk_pupils_pupil_parent_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE CASCADE ON UPDATE CASCADE,
    
    KEY `parents_pupil_parent_fk` (`parent_id`),
-   CONSTRAINT `fk_parents_pupil_parent` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE CASCADE ON UPDATE CASCADE
+   CONSTRAINT `fk_parents_pupil_parent_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE CASCADE ON UPDATE CASCADE
  ) ;
  
  DROP TABLE IF EXISTS `terms`;
@@ -205,10 +218,42 @@ CREATE TABLE `pupil_parent` (
    `term_description` 	varchar(30) 	NOT NULL,
    `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
    PRIMARY KEY (`term_id`),
+   
    UNIQUE KEY `uindex_terms_term_name` (`term_name`)
  );
  
 INSERT INTO terms (term_name, term_description) 
 	VALUES ('Term12021','04January2021-15April2021');
+    
+ CREATE TABLE `exams` (
+   `exam_id` 			bigint 			NOT NULL AUTO_INCREMENT,
+   `teacher_id` 		bigint  			NOT NULL,
+   `subject_id` 		bigint  			NOT NULL,
+   `class_id` 		bigint  			NOT NULL,
+   `term_name` 		varchar(30)  			NOT NULL,
+   `exam_title`	varchar(50) 	NOT NULL,
+   `exam_date`	varchar(50) 	NOT NULL,
+   `exam_duration`	varchar(50) 	NOT NULL,
+   `total_marks`	varchar(50) 	NOT NULL,
+   `total_questions`	varchar(50) 	NOT NULL,
+   `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+   `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+   
+   PRIMARY KEY (`exam_id`),
+   
+   KEY `teachers_exams_fk` (`teacher_id`),
+   CONSTRAINT `fk_teachers_exams_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `subjects_exams_fk` (`subject_id`),
+   CONSTRAINT `fk_subjects_exams_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `classes_exams_fk` (`class_id`),
+   CONSTRAINT `fk_classes_exams_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+   
+   KEY `terms_exams_fk` (`term_name`),
+   CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `terms` (`term_name`) ON DELETE CASCADE ON UPDATE CASCADE
+   ) ;
  
+				
