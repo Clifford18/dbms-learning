@@ -16,7 +16,7 @@ USE `online_exam`;
 -- pupils**
 -- --parent_pupil**
 
--- terms*
+-- terms**
 -- exams*
 -- questions*
 -- choices*
@@ -283,7 +283,10 @@ UNIQUE KEY `uindex_terms_term_name` (`term_name`)
 );
 
 INSERT INTO terms (term_name, term_description)
-VALUES ('Term12021','04January2021-15April2021');
+VALUES 
+	('Term12021','04January2021-15April2021'),
+    ('Term22021','04Mmay2021-15August2021'),
+    ('Term32021','04September2021-15November2021');
 
 DROP TABLE IF EXISTS `exams`;
 
