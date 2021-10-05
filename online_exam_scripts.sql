@@ -323,11 +323,11 @@ CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `term
 
 INSERT INTO exams (teacher_id, subject_id, class_id, term_name, exam_title, exam_date, exam_duration, total_marks, total_questions)
 VALUES 
-	(1,1,1,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
-    (2,1,2,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
-    (3,1,3,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
-    (5,1,4,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
-    (6,1,5,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20);
+	(1,1,1,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
+    (2,1,2,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
+    (3,1,3,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
+    (5,1,4,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
+    (6,1,5,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25);
 
 DROP TABLE IF EXISTS `questions`;
 
@@ -344,6 +344,23 @@ PRIMARY KEY (`question_id`),
 KEY `exams_questions_fk` (`exam_id`),
 CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
+
+ 
+DROP PROCEDURE IF EXISTS generate_questions;
+DELIMITER $$
+CREATE PROCEDURE generate_questions()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i < 21 DO
+    INSERT INTO `questions` (`exam_id`,`question_description`,`marks`) 
+		VALUES (
+        1,concat('question_description - ',i ),2
+    );
+    SET i = i + 1;
+  END WHILE;
+END$$
+DELIMITER ;
+CALL generate_questions();
 
 DROP TABLE IF EXISTS `choices`;
 
