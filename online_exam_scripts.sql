@@ -351,7 +351,7 @@ DELIMITER $$
 CREATE PROCEDURE generate_questions()
 BEGIN
   DECLARE i INT DEFAULT 1;
-  WHILE i < 21 DO
+  WHILE i < 26 DO
     INSERT INTO `questions` (`exam_id`,`question_description`,`marks`) 
 		VALUES (
         1,concat('question_description - ',i ),2
@@ -377,6 +377,25 @@ PRIMARY KEY (`choice_id`),
 KEY `questions_choices_fk` (`question_id`),
 CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
+
+DROP PROCEDURE IF EXISTS generate_choices;
+DELIMITER $$
+CREATE PROCEDURE generate_choices()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i < 26 DO
+    INSERT INTO `choices` (`question_id`,`choice_label`,`remark`) 
+		VALUES 
+        (i,'A','False'),
+        (i,'B','False'),
+        (i,'C','True'),
+        (i,'D','False');
+    SET i = i + 1;
+  END WHILE;
+END$$
+DELIMITER ;
+CALL generate_choices();
+
 
 DROP TABLE IF EXISTS `answers`;
 
