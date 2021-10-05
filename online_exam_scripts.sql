@@ -13,8 +13,8 @@ USE `online_exam`;
 -- -- teacher_class*
 
 -- parents**
--- pupils*
--- --parent_pupil*
+-- pupils**
+-- --parent_pupil**
 
 -- terms*
 -- exams*
@@ -138,7 +138,7 @@ CREATE TABLE `teacher_class` (
 `class_id` 		bigint  			NOT NULL,
 `teacher_id` 		bigint  			NOT NULL,
 `subject_id` 		bigint  			NOT NULL,
-`description`	varchar(50) 	NOT NULL,
+`description`	varchar(50) 	 NULL,
 `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -203,7 +203,7 @@ CREATE TABLE `pupils` (
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
 `gender` 	varchar(30) 	NOT NULL,
-`date_of birth` 	time	NOT NULL,
+`date_of_birth` 	date	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -213,13 +213,39 @@ KEY `classes_pupils_fk` (`class_id`),
 CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+INSERT INTO pupils (class_id, first_name, last_name,gender,date_of_birth)
+VALUES
+(1,'Firstname101', 'Lastname101', 'Male','2021-10-05'),
+(1,'Firstname102', 'Lastname102', 'Female','2021-10-05'),
+(1,'Firstname103', 'Lastname103', 'Male','2021-10-05'),
+(1,'Firstname104', 'Lastname104', 'Male','2021-10-05'),
+(1,'Firstname105', 'Lastname105', 'Female','2021-10-05'),
+(1,'Firstname106', 'Lastname106', 'FeMale','2021-10-05'),
+(1,'Firstname107', 'Lastname107', 'Male','2021-10-05'),
+(1,'Firstname108', 'Lastname108', 'Female','2021-10-05'),
+(1,'Firstname109', 'Lastname109', 'Male','2021-10-05'),
+(1,'Firstname1010', 'Lastnamed1010','Male','2021-10-05'),
+(1,'Firstname1011', 'Lastname1011','Female','2021-10-05'),
+(2,'Firstname201', 'Lastname201', 'Male','2021-10-05'),
+(2,'Firstname202', 'Lastname202', 'Female','2021-10-05'),
+(2,'Firstname203', 'Lastname203', 'Male','2021-10-05'),
+(2,'Firstname204', 'Lastname204', 'Male','2021-10-05'),
+(2,'Firstname205', 'Lastname205', 'Female','2021-10-05'),
+(2,'Firstname206', 'Lastname206', 'FeMale','2021-10-05'),
+(2,'Firstname207', 'Lastname207', 'Male','2021-10-05'),
+(2,'Firstname208', 'Lastname208', 'Female','2021-10-05'),
+(2,'Firstname209', 'Lastname209', 'Male','2021-10-05'),
+(2,'Firstname2010', 'Lastname2010','Male','2021-10-05'),
+(2,'Firstname2011', 'Lastname2011','Female','2021-10-05');
+
 DROP TABLE IF EXISTS `pupil_parent`;
 
 CREATE TABLE `pupil_parent` (
 `pupil_parent_id` 			bigint 			NOT NULL AUTO_INCREMENT,
 `pupil_id` 		bigint  			NOT NULL,
 `parent_id` 		bigint  			NOT NULL,
-`description`	varchar(50) 	NOT NULL,
+`description`	varchar(50) 	 NULL,
 `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -231,6 +257,16 @@ CONSTRAINT `fk_pupils_pupil_parent_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES
 KEY `parents_pupil_parent_fk` (`parent_id`),
 CONSTRAINT `fk_parents_pupil_parent_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
+INSERT INTO pupil_parent (pupil_id, parent_id,description)
+VALUES
+(1, 1, 'description1'),
+(1, 2, 'description2'),
+(2, 3,'description3'),
+(3, 4,'description4'),
+(3, 5,'description5'),
+(4, 6,'description6');
+
+
 
 DROP TABLE IF EXISTS `terms`;
 
