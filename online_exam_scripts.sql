@@ -5,11 +5,11 @@ USE `online_exam`;
 
 -- -- --entities
 
--- stream*
--- classes*
+-- stream**
+-- classes**
 
--- subjects*
--- teachers*
+-- subjects**
+-- teachers**
 -- -- teacher_class*
 
 -- parents*
@@ -154,7 +154,14 @@ CREATE TABLE `teacher_class` (
    CONSTRAINT `fk_subjects_teacher_class_subject_id` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`subject_id`) ON DELETE CASCADE ON UPDATE CASCADE
    
  ) ;
- 
+ INSERT INTO teacher_class (class_id, teacher_id, subject_id,description)
+      VALUES
+			(1, 1, 1,'description1'),
+            (4, 1, 4,'description2'),
+            (5, 1, 1,'description3'),
+            (1, 2, 2,'description4'),
+            (4, 2, 2,'description5'),
+            (5, 2, 2,'description6');
 DROP TABLE IF EXISTS `parents`;
 
 CREATE TABLE `parents` (
