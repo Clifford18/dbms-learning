@@ -17,7 +17,7 @@ USE `online_exam`;
 -- --parent_pupil**
 
 -- terms**
--- exams*
+-- exams**
 -- questions*
 -- choices*
 -- answers*
@@ -251,6 +251,8 @@ CREATE TABLE `pupil_parent` (
 
 PRIMARY KEY (`pupil_parent_id`),
 
+UNIQUE KEY `uindex_pupil_parent_pupil_id_parent_id` (`pupil_id`,`parent_id`),
+
 KEY `pupils_pupil_parent_fk` (`pupil_id`),
 CONSTRAINT `fk_pupils_pupil_parent_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 
@@ -285,7 +287,7 @@ UNIQUE KEY `uindex_terms_term_name` (`term_name`)
 INSERT INTO terms (term_name, term_description)
 VALUES 
 	('Term12021','04January2021-15April2021'),
-    ('Term22021','04Mmay2021-15August2021'),
+    ('Term22021','04May2021-15August2021'),
     ('Term32021','04September2021-15November2021');
 
 DROP TABLE IF EXISTS `exams`;
@@ -297,8 +299,8 @@ CREATE TABLE `exams` (
 `class_id` 		bigint  			NOT NULL,
 `term_name` 		varchar(30)  			NOT NULL,
 `exam_title`	varchar(50) 	NOT NULL,
-`exam_date`	varchar(50) 	NOT NULL,
-`exam_duration`	varchar(50) 	NOT NULL,
+`exam_date`	date 	NOT NULL,
+`exam_duration`	time 	NOT NULL,
 `total_marks`	varchar(50) 	NOT NULL,
 `total_questions`	varchar(50) 	NOT NULL,
 `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -318,6 +320,14 @@ CONSTRAINT `fk_classes_exams_class_id` FOREIGN KEY (`class_id`) REFERENCES `clas
 KEY `terms_exams_fk` (`term_name`),
 CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `terms` (`term_name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ;
+
+INSERT INTO exams (teacher_id, subject_id, class_id, term_name, exam_title, exam_date, exam_duration, total_marks, total_questions)
+VALUES 
+	(1,1,1,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
+    (2,1,2,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
+    (3,1,3,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
+    (5,1,4,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20),
+    (6,1,5,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,20);
 
 DROP TABLE IF EXISTS `questions`;
 
