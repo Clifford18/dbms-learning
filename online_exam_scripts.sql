@@ -18,9 +18,9 @@ USE `online_exam`;
 
 -- terms**
 -- exams**
--- questions*
--- choices*
--- answers*
+-- questions**
+-- choices**
+-- answers**
 DROP TABLE IF EXISTS `streams`;
 
 CREATE TABLE `streams` (
