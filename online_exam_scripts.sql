@@ -419,3 +419,43 @@ KEY `choices_answers_fk` (`choice_id`),
 CONSTRAINT `fk_choices_answers_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`choice_id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 ) ;	
+
+DROP PROCEDURE IF EXISTS generate_answers;
+DELIMITER $$
+CREATE PROCEDURE generate_answers()
+BEGIN
+	DECLARE i INT DEFAULT 1;
+	WHILE i < 23 DO
+	INSERT INTO `answers` (`pupil_id`,`question_id`,`choice_id`)
+			VALUES
+				(i,1,CAST((RAND()*(4-1)+1) AS SIGNED)),
+				(i,2,CAST((RAND()*(8-(4+1))+(4+1)) AS SIGNED)),
+				(i,3,CAST((RAND()*(12-(8+1))+(8+1)) AS SIGNED)),
+				(i,4,CAST((RAND()*(16-(12+1))+(12+1)) AS SIGNED)),
+				(i,5,CAST((RAND()*(20-(16+1))+(16+1)) AS SIGNED)),
+				(i,6,CAST((RAND()*(24-(20+1))+(20+1)) AS SIGNED)),
+				(i,7,CAST((RAND()*(28-(24+1))+(24+1)) AS SIGNED)),
+				(i,8,CAST((RAND()*(32-(28+1))+(28+1)) AS SIGNED)),
+				(i,9,CAST((RAND()*(36-(32+1))+(32+1)) AS SIGNED)),
+				(i,10,CAST((RAND()*(40-(36+1))+(36+1)) AS SIGNED)),
+				(i,11,CAST((RAND()*(44-(40+1))+(40+1)) AS SIGNED)),
+				(i,12,CAST((RAND()*(48-(44+1))+(44+1)) AS SIGNED)),
+				(i,13,CAST((RAND()*(52-(48+1))+(48+1)) AS SIGNED)),
+				(i,14,CAST((RAND()*(56-(52+1))+(52+1)) AS SIGNED)),
+				(i,15,CAST((RAND()*(60-(56+1))+(56+1)) AS SIGNED)),
+				(i,16,CAST((RAND()*(64-(60+1))+(60+1)) AS SIGNED)),
+				(i,17,CAST((RAND()*(68-(64+1))+(64+1)) AS SIGNED)),
+				(i,18,CAST((RAND()*(72-(68+1))+(68+1)) AS SIGNED)),
+				(i,19,CAST((RAND()*(76-(72+1))+(72+1)) AS SIGNED)),
+				(i,20,CAST((RAND()*(80-(76+1))+(76+1)) AS SIGNED)),
+				(i,21,CAST((RAND()*(84-(80+1))+(80+1)) AS SIGNED)),
+				(i,22,CAST((RAND()*(88-(84+1))+(84+1)) AS SIGNED)),
+				(i,23,CAST((RAND()*(92-(88+1))+(88+1)) AS SIGNED)),
+				(i,24,CAST((RAND()*(96-(92+1))+(92+1)) AS SIGNED)),
+				(i,25,CAST((RAND()*(100-(96+1))+(96+1)) AS SIGNED));
+			SET i = i + 1;
+	END WHILE;
+END$$
+DELIMITER ;
+CALL generate_answers();
+
