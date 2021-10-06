@@ -324,10 +324,10 @@ CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `term
 INSERT INTO exams (teacher_id, subject_id, class_id, term_name, exam_title, exam_date, exam_duration, total_marks, total_questions)
 VALUES 
 	(1,1,1,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
-    (2,1,2,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
-    (3,1,3,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
-    (5,1,4,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
-    (6,1,5,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25);
+    (2,1,2,'Term12021','exam_title2','2021-10-05',' 03:00:00',50,25),
+    (3,1,3,'Term12021','exam_title3','2021-10-05',' 03:00:00',50,25),
+    (5,1,4,'Term12021','exam_title4','2021-10-05',' 03:00:00',50,25),
+    (6,1,5,'Term12021','exam_title','2021-10-05',' 03:00:00',50,25);
 
 DROP TABLE IF EXISTS `questions`;
 
@@ -386,10 +386,10 @@ BEGIN
   WHILE i < 26 DO
     INSERT INTO `choices` (`question_id`,`choice_label`,`remark`) 
 		VALUES 
-        (i,'A','False'),
-        (i,'B','False'),
-        (i,'C','True'),
-        (i,'D','False');
+        (i,'A','Wrong'),
+        (i,'B','Wrong'),
+        (i,'C','Correct'),
+        (i,'D','Wrong');
     SET i = i + 1;
   END WHILE;
 END$$
