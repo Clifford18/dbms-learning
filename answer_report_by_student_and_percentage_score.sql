@@ -6,7 +6,7 @@ pupils.last_name,
 answers.pupil_id,
 count(choices.remark) AS correctly_asnswered,
 (count(choices.remark)*questions.marks) AS total_marks,
-(((count(choices.remark)*questions.marks)/exams.total_marks)*100) AS percentage,
+ROUND((((count(choices.remark)*questions.marks)/exams.total_marks)*100),1) AS percentage_score,
 
 exams.exam_title
 
