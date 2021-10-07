@@ -6,7 +6,7 @@ USE `online_exam`;
 -- -- --entities
 
 -- stream***
--- classes**
+-- classes***
 
 -- subjects**
 -- teachers**
@@ -30,8 +30,9 @@ CREATE TABLE `streams` (
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`stream_name`),
-KEY `index_stream_date_created`(`date_created`),
-KEY `index_stream_date_modified`(`date_modified`)
+
+KEY `index_streams_date_created`(`date_created`),
+KEY `index_streams_date_modified`(`date_modified`)
 );
 
 INSERT INTO streams (stream_name)
@@ -55,7 +56,12 @@ CREATE TABLE `classes` (
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-PRIMARY KEY (`class_id`)
+PRIMARY KEY (`class_id`),
+
+KEY `index_classes_date_created`(`date_created`),
+KEY `index_classes_date_modified`(`date_modified`),
+
+UNIQUE KEY `uindex_classes_class_name_stream_name` (`class_name`,`stream_name`)
 );
 
 INSERT INTO classes (class_name, stream_name)
