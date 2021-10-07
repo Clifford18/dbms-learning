@@ -1,7 +1,6 @@
 USE  online_exam;
 
 SELECT 
-answers.choice_id,
 pupils.first_name,
 pupils.last_name,
 answers.pupil_id,
