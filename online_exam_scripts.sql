@@ -5,7 +5,7 @@ USE `online_exam`;
 
 -- -- --entities
 
--- stream**
+-- stream***
 -- classes**
 
 -- subjects**
@@ -24,15 +24,14 @@ USE `online_exam`;
 DROP TABLE IF EXISTS `streams`;
 
 CREATE TABLE `streams` (
-`stream_id`	bigint	 		NOT NULL AUTO_INCREMENT,
 `stream_name` 	varchar(30) 	NOT NULL,
 `stream_description` 	varchar(30) 	DEFAULT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-PRIMARY KEY (`stream_id`),
-
-UNIQUE KEY `uindex_streams_stream_name` (`stream_name`)
+PRIMARY KEY (`stream_name`),
+KEY `index_stream_date_created`(`date_created`),
+KEY `index_stream_date_modified`(`date_modified`)
 );
 
 INSERT INTO streams (stream_name)
