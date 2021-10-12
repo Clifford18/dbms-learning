@@ -336,12 +336,15 @@ CREATE TABLE `pupil_parent` (
 
 PRIMARY KEY (`pupil_parent_id`),
 
+KEY `index_pupil_parent_date_created`(`date_created`),
+KEY `index_pupil_parent_date_modified`(`date_modified`),
+
 UNIQUE KEY `uindex_pupil_parent_pupil_id_parent_id` (`pupil_id`,`parent_id`),
 
-KEY `pupils_pupil_parent_fk` (`pupil_id`),
+KEY `fk_pupils_pupil_parent_pupil_id` (`pupil_id`),
 CONSTRAINT `fk_pupils_pupil_parent_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `parents_pupil_parent_fk` (`parent_id`),
+KEY `fk_parents_pupil_parent_parent_id` (`parent_id`),
 CONSTRAINT `fk_parents_pupil_parent_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
 
