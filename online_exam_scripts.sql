@@ -436,7 +436,7 @@ CREATE TABLE `questions` (
 
 PRIMARY KEY (`question_id`),
 
-KEY `exams_questions_fk` (`exam_id`),
+KEY `fk_exams_questions_exam_id` (`exam_id`),
 CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
 
