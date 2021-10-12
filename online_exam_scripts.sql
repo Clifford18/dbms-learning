@@ -10,8 +10,8 @@ USE `online_exam`;
 
 -- subjects***
 -- genders***
--- teachers**
--- -- teacher_class*
+-- teachers***
+-- -- teacher_class***
 
 -- parents**
 -- pupils**
@@ -143,8 +143,8 @@ CREATE TABLE `teachers` (
 
 PRIMARY KEY (`teacher_id`),
 
-KEY `index_teachers_id_number`(`id_number`),
 KEY `index_teachers_phone_number`(`phone_number`),
+KEY `index_teachers_email_address`(`email_address`),
 KEY `index_teachers_date_created`(`date_created`),
 KEY `index_teachers_date_modified`(`date_modified`),
 
@@ -182,13 +182,19 @@ CREATE TABLE `teacher_class` (
 
 PRIMARY KEY (`teacher_class_id`),
 
-KEY `classes_teacher_class_fk` (`class_id`),
+KEY `index_teacher_class_class_id`(`class_id`),
+KEY `index_teacher_class_teacher_id`(`teacher_id`),
+KEY `index_teacher_class_subject_name`(`subject_name`),
+KEY `index_teacher_class_date_created`(`date_created`),
+KEY `index_teacher_class_date_modified`(`date_modified`),
+
+KEY `fk_classes_teacher_class_class_id` (`class_id`),
 CONSTRAINT `fk_classes_teacher_class_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `teachers_teacher_class_fk` (`teacher_id`),
+KEY `fk_teachers_teacher_class_teacher_id` (`teacher_id`),
 CONSTRAINT `fk_teachers_teacher_class_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `subjects_teacher_class_fk` (`subject_name`),
+KEY `fk_subjects_teacher_class_subject_name` (`subject_name`),
 CONSTRAINT `fk_subjects_teacher_class_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 
 ) ;
