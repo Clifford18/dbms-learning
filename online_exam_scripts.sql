@@ -134,7 +134,7 @@ CREATE TABLE `teachers` (
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
 `designation` 	varchar(30) 	DEFAULT NULL,
-`gender` 	varchar(30) 	NOT NULL,
+`gender`  ENUM	('Male','Female'),
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -143,7 +143,11 @@ CREATE TABLE `teachers` (
 
 PRIMARY KEY (`teacher_id`),
 
-UNIQUE KEY `uindex_teachers_id_number` (`id_number`)
+UNIQUE KEY `uindex_teachers_id_number` (`id_number`),
+
+KEY `genders_teachers_fk` (`gender`),
+CONSTRAINT `fk_genders_teachers_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
+
 );
 
 INSERT INTO teachers (first_name, last_name, designation, gender, id_number, phone_number,email_address)
