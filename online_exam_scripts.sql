@@ -516,6 +516,8 @@ PRIMARY KEY (`answer_id`),
 KEY `index_answers_date_created`(`date_created`),
 KEY `index_answers_date_modified`(`date_modified`),
 
+UNIQUE KEY `uindex_answers_pupil_id_question_id`(`pupil_id`,`question_id`),
+
 KEY `fk_pupils_answers_pupil_id` (`pupil_id`),
 CONSTRAINT `fk_pupils_answers_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
