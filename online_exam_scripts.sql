@@ -182,9 +182,6 @@ CREATE TABLE `teacher_class` (
 
 PRIMARY KEY (`teacher_class_id`),
 
-KEY `index_teacher_class_class_id`(`class_id`),
-KEY `index_teacher_class_teacher_id`(`teacher_id`),
-KEY `index_teacher_class_subject_name`(`subject_name`),
 KEY `index_teacher_class_date_created`(`date_created`),
 KEY `index_teacher_class_date_modified`(`date_modified`),
 
