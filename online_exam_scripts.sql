@@ -134,7 +134,7 @@ CREATE TABLE `teachers` (
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
 `designation` 	varchar(30) 	DEFAULT NULL,
-`gender_name` 	varchar(30) 	NOT NULL,
+`gender` 	varchar(30) 	NOT NULL,
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -146,7 +146,7 @@ PRIMARY KEY (`teacher_id`),
 UNIQUE KEY `uindex_teachers_id_number` (`id_number`)
 );
 
-INSERT INTO teachers (first_name, last_name, designation, gender_name, id_number, phone_number,email_address)
+INSERT INTO teachers (first_name, last_name, designation, gender, id_number, phone_number,email_address)
 VALUES
 ('Firstname1', 'Lastname1', 'HeadMaster','Male','12345A','254712123456','f1l1@gmail.com'),
 ('Firstname2', 'Lastname2', 'Deputy-HeadMaster','Female','12345B','254713123456','f2l2@gmail.com'),
@@ -197,7 +197,7 @@ CREATE TABLE `parents` (
 `parent_id`	bigint	 		NOT NULL AUTO_INCREMENT,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender_name` 	varchar(30) 	NOT NULL,
+`gender` 	varchar(30) 	NOT NULL,
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -209,7 +209,7 @@ PRIMARY KEY (`parent_id`),
 UNIQUE KEY `uindex_parents_id_number` (`id_number`)
 );
 
-INSERT INTO parents (first_name, last_name,gender_name,id_number,phone_number,email_address)
+INSERT INTO parents (first_name, last_name,gender,id_number,phone_number,email_address)
 VALUES
 ('Firstname1', 'Lastname1', 'Male','12345A','254712123456','pf1l1@gmail.com'),
 ('Firstname2', 'Lastname2', 'Female','12345B','254713123456','pf2l2@gmail.com'),
@@ -231,7 +231,7 @@ CREATE TABLE `pupils` (
 `class_id` 		bigint  			NOT NULL,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender_name` 	varchar(30) 	NOT NULL,
+`gender` 	varchar(30) 	NOT NULL,
 `date_of_birth` 	date	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -243,7 +243,7 @@ CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`c
 );
 
 
-INSERT INTO pupils (class_id, first_name, last_name,gender_name,date_of_birth)
+INSERT INTO pupils (class_id, first_name, last_name,gender,date_of_birth)
 VALUES
 (1,'Firstname101', 'Lastname101', 'Male','2021-10-05'),
 (1,'Firstname102', 'Lastname102', 'Female','2021-10-05'),
