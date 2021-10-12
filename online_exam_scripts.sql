@@ -13,7 +13,7 @@ USE `online_exam`;
 -- teachers***
 -- -- teacher_class***
 
--- parents**
+-- parents***
 -- pupils**
 -- --parent_pupil**
 
@@ -209,7 +209,7 @@ CREATE TABLE `parents` (
 `parent_id`	bigint	 		NOT NULL AUTO_INCREMENT,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender` 	varchar(30) 	NOT NULL,
+`gender`  ENUM	('Male','Female'),
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -218,7 +218,16 @@ CREATE TABLE `parents` (
 
 PRIMARY KEY (`parent_id`),
 
-UNIQUE KEY `uindex_parents_id_number` (`id_number`)
+KEY `index_parents_phone_number`(`phone_number`),
+KEY `index_parents_email_address`(`email_address`),
+KEY `index_parents_date_created`(`date_created`),
+KEY `index_parents_date_modified`(`date_modified`),
+
+UNIQUE KEY `uindex_parents_id_number` (`id_number`),
+
+KEY `fk_genders_parents_gender` (`gender`),
+CONSTRAINT `fk_genders_parents_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
+
 );
 
 INSERT INTO parents (first_name, last_name,gender,id_number,phone_number,email_address)
