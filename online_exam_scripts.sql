@@ -369,6 +369,9 @@ CREATE TABLE `terms` (
 
 PRIMARY KEY (`term_id`),
 
+KEY `index_terms_date_created`(`date_created`),
+KEY `index_terms_date_modified`(`date_modified`),
+
 UNIQUE KEY `uindex_terms_term_name` (`term_name`)
 );
 
