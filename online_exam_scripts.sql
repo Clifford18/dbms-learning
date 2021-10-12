@@ -513,13 +513,16 @@ DROP TABLE IF EXISTS `answers`;
 
 PRIMARY KEY (`answer_id`),
 
-KEY `pupils_answers_fk` (`pupil_id`),
+KEY `index_answers_date_created`(`date_created`),
+KEY `index_answers_date_modified`(`date_modified`),
+
+KEY `fk_pupils_answers_pupil_id` (`pupil_id`),
 CONSTRAINT `fk_pupils_answers_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `questions_answers_fk` (`question_id`),
+KEY `fk_questions_answers_question_id` (`question_id`),
 CONSTRAINT `fk_questions_answers_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `choices_answers_fk` (`choice_id`),
+KEY `fk_choices_answers_choice_id` (`choice_id`),
 CONSTRAINT `fk_choices_answers_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`choice_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;	
 
