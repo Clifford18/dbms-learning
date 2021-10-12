@@ -9,6 +9,7 @@ USE `online_exam`;
 -- classes***
 
 -- subjects***
+-- genders***
 -- teachers**
 -- -- teacher_class*
 
@@ -105,6 +106,27 @@ VALUES
 ('Home Science'),
 ('PE');
 
+DROP TABLE IF EXISTS `genders`;
+
+CREATE TABLE `genders` (
+`gender`  ENUM	('Male','Female'),
+`gender_description` 	varchar(30) 	DEFAULT NULL,
+`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`gender`),
+
+KEY `index_genders_date_created`(`date_created`),
+KEY `index_genders_date_modified`(`date_modified`)
+
+
+);
+
+INSERT INTO genders (gender)
+VALUES
+('Male'),
+('Female');
+
 DROP TABLE IF EXISTS `teachers`;
 
 CREATE TABLE `teachers` (
@@ -112,7 +134,7 @@ CREATE TABLE `teachers` (
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
 `designation` 	varchar(30) 	DEFAULT NULL,
-`gender` 	varchar(30) 	NOT NULL,
+`gender_name` 	varchar(30) 	NOT NULL,
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -124,7 +146,7 @@ PRIMARY KEY (`teacher_id`),
 UNIQUE KEY `uindex_teachers_id_number` (`id_number`)
 );
 
-INSERT INTO teachers (first_name, last_name, designation,gender,id_number,phone_number,email_address)
+INSERT INTO teachers (first_name, last_name, designation, gender_name, id_number, phone_number,email_address)
 VALUES
 ('Firstname1', 'Lastname1', 'HeadMaster','Male','12345A','254712123456','f1l1@gmail.com'),
 ('Firstname2', 'Lastname2', 'Deputy-HeadMaster','Female','12345B','254713123456','f2l2@gmail.com'),
@@ -161,7 +183,7 @@ KEY `subjects_teacher_class_fk` (`subject_name`),
 CONSTRAINT `fk_subjects_teacher_class_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 
 ) ;
-INSERT INTO teacher_class (class_id, teacher_id, subject_name,description)
+INSERT INTO teacher_class (class_id, teacher_id, subject_name,description)    
 VALUES
 (1, 1, 'Maths','description1'),
 (4, 1, 'Science','description2'),
@@ -175,7 +197,7 @@ CREATE TABLE `parents` (
 `parent_id`	bigint	 		NOT NULL AUTO_INCREMENT,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender` 	varchar(30) 	NOT NULL,
+`gender_name` 	varchar(30) 	NOT NULL,
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -187,7 +209,7 @@ PRIMARY KEY (`parent_id`),
 UNIQUE KEY `uindex_parents_id_number` (`id_number`)
 );
 
-INSERT INTO parents (first_name, last_name,gender,id_number,phone_number,email_address)
+INSERT INTO parents (first_name, last_name,gender_name,id_number,phone_number,email_address)
 VALUES
 ('Firstname1', 'Lastname1', 'Male','12345A','254712123456','pf1l1@gmail.com'),
 ('Firstname2', 'Lastname2', 'Female','12345B','254713123456','pf2l2@gmail.com'),
@@ -209,7 +231,7 @@ CREATE TABLE `pupils` (
 `class_id` 		bigint  			NOT NULL,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender` 	varchar(30) 	NOT NULL,
+`gender_name` 	varchar(30) 	NOT NULL,
 `date_of_birth` 	date	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -221,7 +243,7 @@ CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`c
 );
 
 
-INSERT INTO pupils (class_id, first_name, last_name,gender,date_of_birth)
+INSERT INTO pupils (class_id, first_name, last_name,gender_name,date_of_birth)
 VALUES
 (1,'Firstname101', 'Lastname101', 'Male','2021-10-05'),
 (1,'Firstname102', 'Lastname102', 'Female','2021-10-05'),
