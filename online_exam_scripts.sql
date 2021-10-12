@@ -14,7 +14,8 @@ USE `online_exam`;
 -- -- teacher_class***
 
 -- parents***
--- pupils**
+-- status***
+-- pupils***
 -- --parent_pupil**
 
 -- terms**
@@ -47,6 +48,7 @@ VALUES
 ('Blue'),
 ('Green');
 
+
 DROP TABLE IF EXISTS `classes`;
 
 CREATE TABLE `classes` (
@@ -62,7 +64,10 @@ PRIMARY KEY (`class_id`),
 KEY `index_classes_date_created`(`date_created`),
 KEY `index_classes_date_modified`(`date_modified`),
 
-UNIQUE KEY `uindex_classes_class_name_stream_name` (`class_name`,`stream_name`)
+UNIQUE KEY `uindex_classes_class_name_stream_name` (`class_name`,`stream_name`),
+
+KEY `fk_streams_classes_stream_name` (`stream_name`),
+CONSTRAINT `fk_streams_classes_stream_name` FOREIGN KEY (`stream_name`) REFERENCES `streams` (`stream_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 INSERT INTO classes (class_name, stream_name)
@@ -79,6 +84,7 @@ VALUES
 ('Class 2'),
 ('Class 1');
 
+
 DROP TABLE IF EXISTS `subjects`;
 
 CREATE TABLE `subjects` (
@@ -91,8 +97,6 @@ PRIMARY KEY (`subject_name`),
 
 KEY `index_subjects_date_created`(`date_created`),
 KEY `index_subjects_date_modified`(`date_modified`)
-
-
 );
 
 INSERT INTO subjects (subject_name)
@@ -106,6 +110,7 @@ VALUES
 ('Home Science'),
 ('PE');
 
+
 DROP TABLE IF EXISTS `genders`;
 
 CREATE TABLE `genders` (
@@ -118,14 +123,13 @@ PRIMARY KEY (`gender`),
 
 KEY `index_genders_date_created`(`date_created`),
 KEY `index_genders_date_modified`(`date_modified`)
-
-
 );
 
 INSERT INTO genders (gender)
 VALUES
 ('Male'),
 ('Female');
+
 
 DROP TABLE IF EXISTS `teachers`;
 
@@ -152,7 +156,6 @@ UNIQUE KEY `uindex_teachers_id_number` (`id_number`),
 
 KEY `fk_genders_teachers_gender` (`gender`),
 CONSTRAINT `fk_genders_teachers_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
-
 );
 
 INSERT INTO teachers (first_name, last_name, designation, gender, id_number, phone_number,email_address)
@@ -168,6 +171,7 @@ VALUES
 ('Firstname9', 'Lastname9', 'Class Teacher 3','Male','12345I','254720123456','f9l9@gmail.com'),
 ('Firstname10', 'Lastname10', 'Class Teacher 2','Male','12345J','254721123456','f10l10@gmail.com'),
 ('Firstname11', 'Lastname11', 'Class Teacher 1','Female','12345K','254722123456','f11l11@gmail.com');
+
 
 DROP TABLE IF EXISTS `teacher_class`;
 
@@ -193,8 +197,8 @@ CONSTRAINT `fk_teachers_teacher_class_teacher_id` FOREIGN KEY (`teacher_id`) REF
 
 KEY `fk_subjects_teacher_class_subject_name` (`subject_name`),
 CONSTRAINT `fk_subjects_teacher_class_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE
-
 ) ;
+
 INSERT INTO teacher_class (class_id, teacher_id, subject_name,description)    
 VALUES
 (1, 1, 'Maths','description1'),
@@ -203,6 +207,8 @@ VALUES
 (1, 2, 'English','description4'),
 (4, 2, 'English','description5'),
 (5, 2, 'English','description6');
+
+
 DROP TABLE IF EXISTS `parents`;
 
 CREATE TABLE `parents` (
@@ -227,7 +233,6 @@ UNIQUE KEY `uindex_parents_id_number` (`id_number`),
 
 KEY `fk_genders_parents_gender` (`gender`),
 CONSTRAINT `fk_genders_parents_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
-
 );
 
 INSERT INTO parents (first_name, last_name,gender,id_number,phone_number,email_address)
@@ -245,6 +250,25 @@ VALUES
 ('Firstname11', 'Lastname11','Female','12345K','254722123456','pf11l11@gmail.com');
 
 
+DROP TABLE IF EXISTS `pupil_status`;
+
+CREATE TABLE `pupil_status` (
+`status`  ENUM	('Active','Inactive'),
+`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`status`),
+
+KEY `index_pupil_status_date_created`(`date_created`),
+KEY `index_pupil_status_date_modified`(`date_modified`)
+);
+
+INSERT INTO pupil_status (status)
+VALUES
+('Active'),
+('Inactive');
+
+
 DROP TABLE IF EXISTS `pupils`;
 
 CREATE TABLE `pupils` (
@@ -252,42 +276,53 @@ CREATE TABLE `pupils` (
 `class_id` 		bigint  			NOT NULL,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender` 	varchar(30) 	NOT NULL,
+`gender`  ENUM	('Male','Female'),
 `date_of_birth` 	date	NOT NULL,
+`status`  ENUM	('Active','Inactive'),
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`pupil_id`),
 
-KEY `classes_pupils_fk` (`class_id`),
-CONSTRAINT `fk_classes_pupils` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+KEY `index_pupils_date_of_birth`(`date_of_birth`),
+KEY `index_pupils_date_created`(`date_created`),
+KEY `index_pupils_date_modified`(`date_modified`),
+
+KEY `fk_genders_pupils_gender` (`gender`),
+CONSTRAINT `fk_genders_pupils_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_pupil_status_pupils_status` (`status`),
+CONSTRAINT `fk_pupil_status_pupils_status` FOREIGN KEY (`status`) REFERENCES `pupil_status` (`status`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_classes_pupils_class_id` (`class_id`),
+CONSTRAINT `fk_classes_pupils_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-
-INSERT INTO pupils (class_id, first_name, last_name,gender,date_of_birth)
+INSERT INTO pupils (class_id, first_name, last_name,gender,date_of_birth,status)
 VALUES
-(1,'Firstname101', 'Lastname101', 'Male','2021-10-05'),
-(1,'Firstname102', 'Lastname102', 'Female','2021-10-05'),
-(1,'Firstname103', 'Lastname103', 'Male','2021-10-05'),
-(1,'Firstname104', 'Lastname104', 'Male','2021-10-05'),
-(1,'Firstname105', 'Lastname105', 'Female','2021-10-05'),
-(1,'Firstname106', 'Lastname106', 'FeMale','2021-10-05'),
-(1,'Firstname107', 'Lastname107', 'Male','2021-10-05'),
-(1,'Firstname108', 'Lastname108', 'Female','2021-10-05'),
-(1,'Firstname109', 'Lastname109', 'Male','2021-10-05'),
-(1,'Firstname1010', 'Lastnamed1010','Male','2021-10-05'),
-(1,'Firstname1011', 'Lastname1011','Female','2021-10-05'),
-(2,'Firstname201', 'Lastname201', 'Male','2021-10-05'),
-(2,'Firstname202', 'Lastname202', 'Female','2021-10-05'),
-(2,'Firstname203', 'Lastname203', 'Male','2021-10-05'),
-(2,'Firstname204', 'Lastname204', 'Male','2021-10-05'),
-(2,'Firstname205', 'Lastname205', 'Female','2021-10-05'),
-(2,'Firstname206', 'Lastname206', 'FeMale','2021-10-05'),
-(2,'Firstname207', 'Lastname207', 'Male','2021-10-05'),
-(2,'Firstname208', 'Lastname208', 'Female','2021-10-05'),
-(2,'Firstname209', 'Lastname209', 'Male','2021-10-05'),
-(2,'Firstname2010', 'Lastname2010','Male','2021-10-05'),
-(2,'Firstname2011', 'Lastname2011','Female','2021-10-05');
+(1,'Firstname101', 'Lastname101', 'Male','2021-10-05','Active'),
+(1,'Firstname102', 'Lastname102', 'Female','2021-10-05','Active'),
+(1,'Firstname103', 'Lastname103', 'Male','2021-10-05','Active'),
+(1,'Firstname104', 'Lastname104', 'Male','2021-10-05','Active'),
+(1,'Firstname105', 'Lastname105', 'Female','2021-10-05','Active'),
+(1,'Firstname106', 'Lastname106', 'FeMale','2021-10-05','Active'),
+(1,'Firstname107', 'Lastname107', 'Male','2021-10-05','Active'),
+(1,'Firstname108', 'Lastname108', 'Female','2021-10-05','Active'),
+(1,'Firstname109', 'Lastname109', 'Male','2021-10-05','Active'),
+(1,'Firstname1010', 'Lastnamed1010','Male','2021-10-05','Active'),
+(1,'Firstname1011', 'Lastname1011','Female','2021-10-05','Active'),
+(2,'Firstname201', 'Lastname201', 'Male','2021-10-05','Active'),
+(2,'Firstname202', 'Lastname202', 'Female','2021-10-05','Active'),
+(2,'Firstname203', 'Lastname203', 'Male','2021-10-05','Active'),
+(2,'Firstname204', 'Lastname204', 'Male','2021-10-05','Active'),
+(2,'Firstname205', 'Lastname205', 'Female','2021-10-05','Active'),
+(2,'Firstname206', 'Lastname206', 'FeMale','2021-10-05','Active'),
+(2,'Firstname207', 'Lastname207', 'Male','2021-10-05','Active'),
+(2,'Firstname208', 'Lastname208', 'Female','2021-10-05','Active'),
+(2,'Firstname209', 'Lastname209', 'Male','2021-10-05','Active'),
+(2,'Firstname2010', 'Lastname2010','Male','2021-10-05','Active'),
+(2,'Firstname2011', 'Lastname2011','Female','2021-10-05','Active');
+
 
 DROP TABLE IF EXISTS `pupil_parent`;
 
@@ -309,6 +344,7 @@ CONSTRAINT `fk_pupils_pupil_parent_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES
 KEY `parents_pupil_parent_fk` (`parent_id`),
 CONSTRAINT `fk_parents_pupil_parent_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
+
 INSERT INTO pupil_parent (pupil_id, parent_id,description)
 VALUES
 (1, 1, 'description1'),
@@ -317,7 +353,6 @@ VALUES
 (3, 4,'description4'),
 (3, 5,'description5'),
 (4, 6,'description6');
-
 
 
 DROP TABLE IF EXISTS `terms`;
@@ -339,6 +374,7 @@ VALUES
 	('Term12021','04January2021-15April2021'),
     ('Term22021','04May2021-15August2021'),
     ('Term32021','04September2021-15November2021');
+
 
 DROP TABLE IF EXISTS `exams`;
 
@@ -379,6 +415,7 @@ VALUES
   (5,'Maths',4,'Term12021','exam_title4','2021-10-05',' 03:00:00',50,25),
   (6,'Maths',5,'Term12021','exam_title','2021-10-05',' 03:00:00',50,25);
 
+
 DROP TABLE IF EXISTS `questions`;
 
 CREATE TABLE `questions` (
@@ -411,6 +448,7 @@ BEGIN
 END$$
 DELIMITER ;
 CALL generate_questions();
+
 
 DROP TABLE IF EXISTS `choices`;
 
@@ -467,7 +505,6 @@ CONSTRAINT `fk_questions_answers_question_id` FOREIGN KEY (`question_id`) REFERE
 
 KEY `choices_answers_fk` (`choice_id`),
 CONSTRAINT `fk_choices_answers_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`choice_id`) ON DELETE RESTRICT ON UPDATE CASCADE
-
 ) ;	
 
 DROP PROCEDURE IF EXISTS generate_answers;
