@@ -393,33 +393,35 @@ CREATE TABLE `exams` (
 `exam_title`	varchar(50) 	NOT NULL,
 `exam_date`	date 	NOT NULL,
 `exam_duration`	time 	NOT NULL,
-`total_marks`	varchar(50) 	NOT NULL,
 `total_questions`	varchar(50) 	NOT NULL,
 `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`exam_id`),
 
-KEY `teachers_exams_fk` (`teacher_id`),
+KEY `index_exams_date_created`(`date_created`),
+KEY `index_exams_date_modified`(`date_modified`),
+
+KEY `fk_teachers_exams_teacher_id` (`teacher_id`),
 CONSTRAINT `fk_teachers_exams_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `subjects_exams_fk` (`subject_name`),
+KEY `fk_subjects_exams_subject_name` (`subject_name`),
 CONSTRAINT `fk_subjects_exams_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `classes_exams_fk` (`class_id`),
+KEY `fk_classes_exams_class_id` (`class_id`),
 CONSTRAINT `fk_classes_exams_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `terms_exams_fk` (`term_name`),
+KEY `fk_terms_exams_term_name` (`term_name`),
 CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `terms` (`term_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
 
-INSERT INTO exams (teacher_id, subject_name, class_id, term_name, exam_title, exam_date, exam_duration, total_marks, total_questions)
+INSERT INTO exams (teacher_id, subject_name, class_id, term_name, exam_title, exam_date, exam_duration, total_questions)
 VALUES 
-	(1,'Maths',1,'Term12021','exam_title1','2021-10-05',' 03:00:00',50,25),
-  (2,'Maths',2,'Term12021','exam_title2','2021-10-05',' 03:00:00',50,25),
-  (3,'Maths',3,'Term12021','exam_title3','2021-10-05',' 03:00:00',50,25),
-  (5,'Maths',4,'Term12021','exam_title4','2021-10-05',' 03:00:00',50,25),
-  (6,'Maths',5,'Term12021','exam_title','2021-10-05',' 03:00:00',50,25);
+	(1,'Maths',1,'Term12021','exam_title1','2021-10-05',' 03:00:00',25),
+  (2,'Maths',2,'Term12021','exam_title2','2021-10-05',' 03:00:00',25),
+  (3,'Maths',3,'Term12021','exam_title3','2021-10-05',' 03:00:00',25),
+  (5,'Maths',4,'Term12021','exam_title4','2021-10-05',' 03:00:00',25),
+  (6,'Maths',5,'Term12021','exam_title','2021-10-05',' 03:00:00',25);
 
 
 DROP TABLE IF EXISTS `questions`;
