@@ -436,6 +436,9 @@ CREATE TABLE `questions` (
 
 PRIMARY KEY (`question_id`),
 
+KEY `index_questions_date_created`(`date_created`),
+KEY `index_questions_date_modified`(`date_modified`),
+
 KEY `fk_exams_questions_exam_id` (`exam_id`),
 CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
