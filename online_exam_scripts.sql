@@ -143,9 +143,14 @@ CREATE TABLE `teachers` (
 
 PRIMARY KEY (`teacher_id`),
 
+KEY `index_teachers_id_number`(`id_number`),
+KEY `index_teachers_phone_number`(`phone_number`),
+KEY `index_teachers_date_created`(`date_created`),
+KEY `index_teachers_date_modified`(`date_modified`),
+
 UNIQUE KEY `uindex_teachers_id_number` (`id_number`),
 
-KEY `genders_teachers_fk` (`gender`),
+KEY `fk_genders_teachers_gender` (`gender`),
 CONSTRAINT `fk_genders_teachers_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
 
 );
