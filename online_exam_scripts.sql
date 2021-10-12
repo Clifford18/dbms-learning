@@ -467,13 +467,18 @@ DROP TABLE IF EXISTS `choices`;
 `choice_id` 			bigint 			NOT NULL AUTO_INCREMENT,
 `question_id` 		bigint  			NOT NULL,
 `choice_label`	varchar(50) 	NOT NULL,
-`remark`	varchar(50) 	NOT NULL,
+`remark`	ENUM	('Wrong','Correct'),
 `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`choice_id`),
 
-KEY `questions_choices_fk` (`question_id`),
+KEY `index_choices_date_created`(`date_created`),
+KEY `index_choices_date_modified`(`date_modified`),
+
+UNIQUE KEY `uindex_choice_question_id_choice_label`(`question_id`,`choice_label`),
+
+KEY `fk_questions_choices_question_id` (`question_id`),
 CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
 
