@@ -567,3 +567,11 @@ END$$
 DELIMITER ;
 CALL generate_answers();
 
+DROP FUNCTION IF EXISTS full_name;
+
+CREATE FUNCTION full_name(first_nm varchar(30), last_nm varchar(30) )
+RETURNS varchar(60) DETERMINISTIC
+RETURN CONCAT(first_nm, ' ', last_nm);
+
+
+
