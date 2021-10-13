@@ -45,7 +45,7 @@ BEGIN
 	WHILE i < 23 DO
 	INSERT INTO `answers` (`pupil_id`,`question_id`,`choice_id`)
 			VALUES
-				(i,26,CAST((RAND()*(104-101)+1) AS SIGNED)),
+				(i,26,CAST((RAND()*(104-101)+101) AS SIGNED)),
 				(i,27,CAST((RAND()*(108-(104+1))+(104+1)) AS SIGNED)),
 				(i,28,CAST((RAND()*(112-(108+1))+(108+1)) AS SIGNED)),
 				(i,29,CAST((RAND()*(116-(112+1))+(112+1)) AS SIGNED)),
