@@ -444,9 +444,9 @@ CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam
 ) ;
 
  
-DROP PROCEDURE IF EXISTS generate_questions;
+DROP PROCEDURE IF EXISTS generate_questions_exam1;
 DELIMITER $$
-CREATE PROCEDURE generate_questions()
+CREATE PROCEDURE generate_questions_exam1()
 BEGIN
   DECLARE i INT DEFAULT 1;
   WHILE i < 26 DO
@@ -458,7 +458,7 @@ BEGIN
   END WHILE;
 END$$
 DELIMITER ;
-CALL generate_questions();
+CALL generate_questions_exam1();
 
 
 DROP TABLE IF EXISTS `choices`;
@@ -482,9 +482,9 @@ KEY `fk_questions_choices_question_id` (`question_id`),
 CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;
 
-DROP PROCEDURE IF EXISTS generate_choices;
+DROP PROCEDURE IF EXISTS generate_choices_exam1;
 DELIMITER $$
-CREATE PROCEDURE generate_choices()
+CREATE PROCEDURE generate_choices_exam1()
 BEGIN
   DECLARE i INT DEFAULT 1;
   WHILE i < 26 DO
@@ -498,7 +498,7 @@ BEGIN
   END WHILE;
 END$$
 DELIMITER ;
-CALL generate_choices();
+CALL generate_choices_exam1();
 
 
 DROP TABLE IF EXISTS `answers`;
@@ -528,9 +528,9 @@ KEY `fk_choices_answers_choice_id` (`choice_id`),
 CONSTRAINT `fk_choices_answers_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`choice_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ;	
 
-DROP PROCEDURE IF EXISTS generate_answers;
+DROP PROCEDURE IF EXISTS generate_answers_exam1;
 DELIMITER $$
-CREATE PROCEDURE generate_answers()
+CREATE PROCEDURE generate_answers_exam1()
 BEGIN
 	DECLARE i INT DEFAULT 1;
 	WHILE i < 23 DO
@@ -565,7 +565,7 @@ BEGIN
 	END WHILE;
 END$$
 DELIMITER ;
-CALL generate_answers();
+CALL generate_answers_exam1();
 
 DROP FUNCTION IF EXISTS full_name;
 
