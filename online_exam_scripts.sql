@@ -361,18 +361,15 @@ VALUES
 DROP TABLE IF EXISTS `terms`;
 
 CREATE TABLE `terms` (
-`term_id`	bigint	 		NOT NULL AUTO_INCREMENT,
 `term_name` 	varchar(30) 	NOT NULL,
 `term_description` 	varchar(30) 	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-PRIMARY KEY (`term_id`),
+PRIMARY KEY (`term_name`),
 
 KEY `index_terms_date_created`(`date_created`),
 KEY `index_terms_date_modified`(`date_modified`),
-
-UNIQUE KEY `uindex_terms_term_name` (`term_name`)
 );
 
 INSERT INTO terms (term_name, term_description)
