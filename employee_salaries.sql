@@ -1,3 +1,7 @@
+
+DROP DATABASE IF EXISTS `employee_salaries`;
+CREATE DATABASE `employee_salaries`;
+USE `employee_salaries`;
 -- status
 -- genders
 -- status
@@ -28,6 +32,8 @@
 
 -- earning
 -- deductions
+
+
 
 
 
