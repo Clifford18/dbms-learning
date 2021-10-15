@@ -115,7 +115,6 @@ DROP TABLE IF EXISTS `genders`;
 
 CREATE TABLE `genders` (
 `gender`	varchar(30) 	NOT NULL,
-`gender_description` 	varchar(30) 	DEFAULT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
