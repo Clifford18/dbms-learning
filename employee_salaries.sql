@@ -26,6 +26,8 @@
 -- projects
 -- tasks
 
+-- earning
+-- deductions
 
 
 
