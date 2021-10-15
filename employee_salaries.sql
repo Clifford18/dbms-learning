@@ -2,9 +2,9 @@
 DROP DATABASE IF EXISTS `employee_salaries`;
 CREATE DATABASE `employee_salaries`;
 USE `employee_salaries`;
--- status
+
+-- status *
 -- genders
--- status
 
 -- department
 -- employees
@@ -32,6 +32,17 @@ USE `employee_salaries`;
 
 -- earning
 -- deductions
+
+CREATE TABLE `status` (
+`status` 	varchar(30) 	NOT NULL,
+`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`status`),
+
+KEY `index_pupil_status_date_created`(`date_created`),
+KEY `index_pupil_status_date_modified`(`date_modified`)
+);
 
 
 
