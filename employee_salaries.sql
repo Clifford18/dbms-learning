@@ -4,7 +4,7 @@ CREATE DATABASE `employee_salaries`;
 USE `employee_salaries`;
 
 -- status *
--- genders
+-- genders *
 
 -- department
 -- employees
@@ -33,9 +33,11 @@ USE `employee_salaries`;
 -- earning
 -- deductions
 
+DROP TABLE IF EXISTS `status`;
+
 CREATE TABLE `status` (
-`status` 	varchar(30) 	NOT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`status`        	varchar(30) 	NOT NULL,
+`date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`status`),
@@ -45,6 +47,18 @@ KEY `index_pupil_status_date_modified`(`date_modified`)
 );
 
 
+DROP TABLE IF EXISTS `genders`;
+
+CREATE TABLE `genders` (
+`gender`            	varchar(30) 	NOT NULL,
+`date_created`      	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`     	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`gender`),
+
+KEY `index_genders_date_created`(`date_created`),
+KEY `index_genders_date_modified`(`date_modified`)
+);
 
 
 
