@@ -9,19 +9,19 @@ USE `online_exam`;
 -- classes***
 
 -- subjects***
--- genders***
+-- genders****
 -- teachers***
 -- -- teacher_class***
 
 -- parents***
--- status***
+-- status****
 -- pupils***
 -- --parent_pupil**
 
 -- terms**
 -- exams**
 -- questions**
--- choices**
+-- choices***
 -- answers**
 DROP TABLE IF EXISTS `streams`;
 
@@ -114,7 +114,7 @@ VALUES
 DROP TABLE IF EXISTS `genders`;
 
 CREATE TABLE `genders` (
-`gender`  ENUM	('Male','Female'),
+`gender`	varchar(30) 	NOT NULL,
 `gender_description` 	varchar(30) 	DEFAULT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -253,7 +253,7 @@ VALUES
 DROP TABLE IF EXISTS `pupil_status`;
 
 CREATE TABLE `pupil_status` (
-`status`  ENUM	('Active','Inactive'),
+`status` 	varchar(30) 	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -475,6 +475,7 @@ PRIMARY KEY (`choice_id`),
 
 KEY `index_choices_date_created`(`date_created`),
 KEY `index_choices_date_modified`(`date_modified`),
+KEY `index_choices_remark`(`remark`),
 
 UNIQUE KEY `uindex_choice_question_id_choice_label`(`question_id`,`choice_label`),
 
