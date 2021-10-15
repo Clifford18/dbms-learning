@@ -7,8 +7,8 @@ USE `employee_salaries`;
 -- genders *
 
 -- departments *
--- employees
--- managers_description
+-- employees *
+-- managers_descriptions *
 -- managers
 
 -- performance_reviews
@@ -115,4 +115,15 @@ CONSTRAINT `fk_status_employees_status` FOREIGN KEY (`status`) REFERENCES `statu
 );
 
 
+DROP TABLE IF EXISTS `manager_descriptions`;
 
+CREATE TABLE `managers_descriptions` (
+`manager_description`        	ENUM	('Manager','Assistant-manager','Acting-manager'),
+`date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`manager_description`),
+
+KEY `index_pupil_status_date_created`(`date_created`),
+KEY `index_pupil_status_date_modified`(`date_modified`)
+);
