@@ -137,7 +137,7 @@ CREATE TABLE `teachers` (
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
 `designation` 	varchar(30) 	DEFAULT NULL,
-`gender`  ENUM	('Male','Female'),
+`gender`  varchar(30) 	NOT NULL,
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE `parents` (
 `parent_id`	bigint	 		NOT NULL AUTO_INCREMENT,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender`  ENUM	('Male','Female'),
+`gender`  varchar(30) 	NOT NULL,
 `id_number` 	varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
 `email_address` 	varchar(30) 	NOT NULL,
@@ -252,7 +252,7 @@ VALUES
 DROP TABLE IF EXISTS `pupil_status`;
 
 CREATE TABLE `pupil_status` (
-`status` 	varchar(30) 	NOT NULL,
+`status` 	ENUM	('Active','Inactive'),
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -275,7 +275,7 @@ CREATE TABLE `pupils` (
 `class_id` 		bigint  			NOT NULL,
 `first_name` 	varchar(30) 	NOT NULL,
 `last_name` 	varchar(30) 	NOT NULL,
-`gender`  ENUM	('Male','Female'),
+`gender`  varchar(30) 	NOT NULL,
 `date_of_birth` 	date	NOT NULL,
 `status`  ENUM	('Active','Inactive'),
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -368,7 +368,7 @@ CREATE TABLE `terms` (
 PRIMARY KEY (`term_name`),
 
 KEY `index_terms_date_created`(`date_created`),
-KEY `index_terms_date_modified`(`date_modified`),
+KEY `index_terms_date_modified`(`date_modified`)
 );
 
 INSERT INTO terms (term_name, term_description)
