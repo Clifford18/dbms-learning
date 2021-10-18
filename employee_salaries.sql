@@ -14,7 +14,7 @@ USE `employee_salaries`;
 -- performance_reviews  *
 
 -- courses *
--- training_history
+-- training_histories *
 
 -- skills
 -- skill_levels
@@ -201,3 +201,30 @@ PRIMARY KEY (`course_name`),
 KEY `index_courses_date_created`(`date_created`),
 KEY `index_courses_date_modified`(`date_modified`)
 ) ;
+
+
+DROP TABLE IF EXISTS `training_histories`;
+
+CREATE TABLE `training_histories`(
+`training_history_id`       bigint	 		  NOT NULL AUTO_INCREMENT,
+`employee_id` 	            bigint 	      NOT NULL,
+`course_name`               varchar(30)   NOT NULL,
+`training_start_date` 	    varchar(30)   NOT NULL,
+`training_description`      varchar(30)   DEFAULT NULL,
+`training_completion_date` 	varchar(30)   NOT NULL,
+`date_created` 	            timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	          timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`training_history_id`),
+
+KEY `index_training_histories_training_start_date`(`training_start_date`),
+KEY `index_training_histories_training_completion_date`(`training_completion_date`),
+KEY `index_training_histories_date_created`(`date_created`),
+KEY `index_training_histories_date_modified`(`date_modified`),
+
+KEY `fk_employees_training_histories_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_training_histories_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_courses_training_histories_course_name` (`course_name`),
+CONSTRAINT `fk_courses_training_histories_course_name` FOREIGN KEY (`course_name`) REFERENCES `courses` (`course_name`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
