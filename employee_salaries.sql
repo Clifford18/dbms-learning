@@ -85,7 +85,7 @@ CREATE TABLE `employees` (
 `id_number` 	          varchar(30) 	NOT NULL,
 `phone_number` 	        varchar(30) 	NOT NULL,
 `email_address` 	      varchar(30) 	NOT NULL,
-`date_of_birth` 	      varchar(30) 	NOT NULL,
+`date_of_birth` 	      date 	        NOT NULL,
 `department_name` 	    varchar(30) 	NOT NULL,
 `initial_basic_pay` 	  varchar(30) 	NOT NULL,
 `status` 	              ENUM	('new','active','leaving','terminated'),
@@ -137,8 +137,8 @@ CREATE TABLE `managers`(
 `employee_id` 	       bigint 	   NOT NULL,
 `manager_description`  ENUM        ('Manager','Assistant-manager','Acting-manager'),
 `department_name`      varchar(30) NOT NULL,
-`manager_start_date` 	 varchar(30) NOT NULL,
-`manager_end_date` 	   varchar(30) NOT NULL,
+`manager_start_date` 	 date 	NOT NULL,
+`manager_end_date` 	   date 	DEFAULT NULL,
 `date_created` 	       timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	     timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -158,3 +158,4 @@ CONSTRAINT `fk_manager_descriptions_managers_manager_description` FOREIGN KEY (`
 KEY `fk_departments_managers_department_name` (`department_name`),
 CONSTRAINT `fk_departments_managers_department_name` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
