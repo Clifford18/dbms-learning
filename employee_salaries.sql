@@ -11,7 +11,7 @@ USE `employee_salaries`;
 -- managers_descriptions *
 -- managers *
 
--- performance_reviews
+-- performance_reviews  *
 
 -- training_history
 -- courses
@@ -144,8 +144,8 @@ CREATE TABLE `managers`(
 
 PRIMARY KEY (`manager_id`),
 
-KEY `index_managers_start_date`(`manager_start_date`),
-KEY `index_managers_manager_end_dates`(`manager_end_date`),
+KEY `index_managers_manager_start_date`(`manager_start_date`),
+KEY `index_managers_manager_end_date`(`manager_end_date`),
 KEY `index_managers_date_created`(`date_created`),
 KEY `index_managers_date_modified`(`date_modified`),
 
