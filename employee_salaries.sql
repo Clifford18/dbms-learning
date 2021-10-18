@@ -9,7 +9,7 @@ USE `employee_salaries`;
 -- departments *
 -- employees *
 -- managers_descriptions *
--- managers
+-- managers *
 
 -- performance_reviews
 
@@ -117,7 +117,7 @@ CONSTRAINT `fk_status_employees_status` FOREIGN KEY (`status`) REFERENCES `statu
 
 DROP TABLE IF EXISTS `manager_descriptions`;
 
-CREATE TABLE `managers_descriptions` (
+CREATE TABLE `manager_descriptions` (
 `manager_description`        	ENUM	('Manager','Assistant-manager','Acting-manager'),
 `date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -126,4 +126,35 @@ PRIMARY KEY (`manager_description`),
 
 KEY `index_pupil_status_date_created`(`date_created`),
 KEY `index_pupil_status_date_modified`(`date_modified`)
+);
+
+
+
+DROP TABLE IF EXISTS `managers`;
+
+CREATE TABLE `managers`(
+`manager_id`	          bigint	 		NOT NULL AUTO_INCREMENT,
+`employee_id` 	       bigint 	   NOT NULL,
+`manager_description`  ENUM        ('Manager','Assistant-manager','Acting-manager'),
+`department_name`      varchar(30) NOT NULL,
+`manager_start_date` 	 varchar(30) NOT NULL,
+`manager_end_date` 	   varchar(30) NOT NULL,
+`date_created` 	       timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	     timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`manager_id`),
+
+KEY `index_managers_start_date`(`manager_start_date`),
+KEY `index_managers_manager_end_dates`(`manager_end_date`),
+KEY `index_managers_date_created`(`date_created`),
+KEY `index_managers_date_modified`(`date_modified`),
+
+KEY `fk_employees_managers_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_managers_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_manager_descriptions_managers_manager_description` (`manager_description`),
+CONSTRAINT `fk_manager_descriptions_managers_manager_description` FOREIGN KEY (`manager_description`) REFERENCES `manager_descriptions` (`manager_description`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_departments_managers_department_name` (`department_name`),
+CONSTRAINT `fk_departments_managers_department_name` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
