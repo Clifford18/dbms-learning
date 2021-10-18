@@ -164,6 +164,7 @@ DROP TABLE IF EXISTS `performance_reviews`;
 
 CREATE TABLE `performance_reviews`(
 `performance_review_id`	          bigint	 		NOT NULL AUTO_INCREMENT,
+`employee_id` 	       bigint 	   NOT NULL,
 `date of review` 	 date 	NOT NULL,
 `manager_id` 	       bigint 	   NOT NULL,
 `comment_by_employee`      varchar(30) NOT NULL,
@@ -181,6 +182,6 @@ KEY `index_performance_reviews_date_modified`(`date_modified`),
 KEY `fk_employees_performance_reviews_employee_id` (`employee_id`),
 CONSTRAINT `fk_employees_performance_reviews_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-KEY `fk_managers_performance_reviews_employee_id` (`manager_id`),
-CONSTRAINT `fk_managers_performance_reviews_employee_id` FOREIGN KEY (`manager_id`) REFERENCES `employees` (`manager_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+KEY `fk_managers_performance_reviews_manager_id` (`manager_id`),
+CONSTRAINT `fk_managers_performance_reviews_manager_id` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`manager_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
