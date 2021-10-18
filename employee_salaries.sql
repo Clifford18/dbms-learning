@@ -420,3 +420,31 @@ KEY `index_projects_project_end_date`(`project_end_date`),
 KEY `index_projects_date_created`(`date_created`),
 KEY `index_projects_date_modified`(`date_modified`)
 ) ;
+
+
+DROP TABLE IF EXISTS `tasks`;
+
+CREATE TABLE `tasks` (
+`task_id`                 bigint	 		  NOT NULL AUTO_INCREMENT,
+`employee_id` 	          bigint 	      NOT NULL,
+`project_id`              bigint	 		  NOT NULL,
+`task_description`        varchar(30) 	NOT NULL,
+`task_start_date`         date 	        NOT NULL,
+`task_completion_date`    date 	        NOT NULL,
+`date_created` 		        timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 		      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`task_id`),
+
+KEY `index_tasks_task_start_date`(`task_start_date`),
+KEY `index_tasks_task_completion_date`(`task_completion_date`),
+KEY `index_tasks_date_created`(`date_created`),
+KEY `index_tasks_date_modified`(`date_modified`),
+
+KEY `fk_employees_tasks_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_tasks_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_projects_tasks_project_id` (`project_id`),
+CONSTRAINT `fk_projects_tasks_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+
+) ;
