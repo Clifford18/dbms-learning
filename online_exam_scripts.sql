@@ -460,12 +460,13 @@ CALL generate_questions_exam1();
 DROP TABLE IF EXISTS `choices`;
 
     CREATE TABLE `choices` (
-`choice_id` 			bigint 			NOT NULL AUTO_INCREMENT,
-`question_id` 		bigint  			NOT NULL,
-`choice_label`		varchar(50) 	NOT NULL,
-`remark`					ENUM	('Wrong','Correct')		NOT NULL,
-`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified`		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`choice_id` 						bigint 			NOT NULL AUTO_INCREMENT,
+`question_id` 					bigint  			NOT NULL,
+`choice_label`					varchar(50) 	NOT NULL,
+`choice_description`		varchar(50) 	NOT NULL,
+`remark`								ENUM	('Wrong','Correct')		NOT NULL,
+`date_created` 					timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`					timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`choice_id`),
 
@@ -485,12 +486,12 @@ CREATE PROCEDURE generate_choices_exam1()
 BEGIN
   DECLARE i INT DEFAULT 1;
   WHILE i < 26 DO
-    INSERT INTO `choices` (`question_id`,`choice_label`,`remark`) 
+    INSERT INTO `choices` (`question_id`,`choice_label`,`choice_description`,`remark`) 
 		VALUES 
-        (i,'A','Wrong'),
-        (i,'B','Wrong'),
-        (i,'C','Correct'),
-        (i,'D','Wrong');
+        (i,'A',concat('choice_description - ',i ),'Wrong'),
+        (i,'B',concat('choice_description - ',i ),'Wrong'),
+        (i,'C',concat('choice_description - ',i ),'Correct'),
+        (i,'D',concat('choice_description - ',i ),'Wrong');
     SET i = i + 1;
   END WHILE;
 END$$
