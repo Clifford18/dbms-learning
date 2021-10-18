@@ -20,7 +20,7 @@ USE `employee_salaries`;
 -- skill_levels *
 -- employee_skills *
 
--- relationships
+-- relationships *
 -- relationship_descriptions
 -- dependants
 
@@ -255,7 +255,7 @@ CREATE TABLE `skill_levels` (
 PRIMARY KEY (`skill_level`),
 
 KEY `index_skill_levels_date_created`(`date_created`),
-KEY `index_skill_levels_modified`(`date_modified`)
+KEY `index_skill_levels_date_modified`(`date_modified`)
 );
 
 
@@ -286,4 +286,18 @@ CONSTRAINT `fk_skills_employee_skills_skill_name` FOREIGN KEY (`skill_name`) REF
 
 KEY `fk_skill_levels_skills_skill_level` (`skill_level`),
 CONSTRAINT `fk_skill_levels_skills_skill_level` FOREIGN KEY (`skill_level`) REFERENCES `skill_levels` (`skill_level`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+DROP TABLE IF EXISTS `relationships`;
+
+CREATE TABLE `relationships` (
+`relationship`     ENUM(' Father','Mother','Spouse',' Sister','Brother',' Daughter','Son','Extended Family','Friend') NOT NULL,
+`date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`relationship`),
+
+KEY `index_relationships_date_created`(`date_created`),
+KEY `index_relationships_date_modified`(`date_modified`)
 );
