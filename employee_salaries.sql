@@ -24,7 +24,7 @@ USE `employee_salaries`;
 -- relationship_descriptions *
 -- dependants *
 
--- designations
+-- designations *
 -- employee_designations
 
 -- projects
@@ -355,4 +355,19 @@ CONSTRAINT `fk_relationships_dependants_relationship` FOREIGN KEY (`relationship
 
 KEY `fk_relationship_descriptions_dependants_relationship_description` (`relationship_description`),
 CONSTRAINT `fk_relationship_descriptions_dependants_relationship_description` FOREIGN KEY (`relationship_description`) REFERENCES `relationship_descriptions` (`relationship_description`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+DROP TABLE IF EXISTS `designations`;
+
+CREATE TABLE `designations` (
+`designation`                 varchar(30) 	NOT NULL,
+`designation_description`     varchar(30) 	DEFAULT NULL,
+`date_created`                timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`               timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`designation`),
+
+KEY `index_designations_date_created`(`date_created`),
+KEY `index_designations_date_modified`(`date_modified`)
 );
