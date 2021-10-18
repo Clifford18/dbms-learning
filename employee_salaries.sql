@@ -27,7 +27,7 @@ USE `employee_salaries`;
 -- designations *
 -- employee_designations *
 
--- projects
+-- projects *
 -- tasks
 
 -- earning
@@ -400,3 +400,23 @@ KEY `fk_designations_employee_designations_designation` (`designation`),
 CONSTRAINT `fk_designations_employee_designations_designation` FOREIGN KEY (`designation`) REFERENCES `designations` (`designation`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+
+DROP TABLE IF EXISTS `projects`;
+
+CREATE TABLE `projects` (
+`project_id`            bigint	 		  NOT NULL AUTO_INCREMENT,
+`project_start_date`    date 	        NOT NULL,
+`project_title` 			  varchar(30) 	NOT NULL,
+`project_description`   varchar(30) 	NOT NULL,
+`project_location` 	    varchar(30) 	NOT NULL,
+`project_end_date`      date 	        NOT NULL,
+`date_created` 		      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 		    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`project_id`),
+
+KEY `index_projects_project_start_date`(`project_start_date`),
+KEY `index_projects_project_end_date`(`project_end_date`),
+KEY `index_projects_date_created`(`date_created`),
+KEY `index_projects_date_modified`(`date_modified`)
+) ;
