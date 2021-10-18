@@ -159,3 +159,28 @@ KEY `fk_departments_managers_department_name` (`department_name`),
 CONSTRAINT `fk_departments_managers_department_name` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+
+DROP TABLE IF EXISTS `performance_reviews`;
+
+CREATE TABLE `performance_reviews`(
+`performance_review_id`	          bigint	 		NOT NULL AUTO_INCREMENT,
+`date of review` 	 date 	NOT NULL,
+`manager_id` 	       bigint 	   NOT NULL,
+`comment_by_employee`      varchar(30) NOT NULL,
+`comment_by_manager` 	 varchar(30) NOT NULL,
+`date_created` 	       timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	     timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`performance_review_id`),
+
+
+KEY `index_performance_reviews_date of review`(`date of review`),
+KEY `index_performance_reviews_date_created`(`date_created`),
+KEY `index_performance_reviews_date_modified`(`date_modified`),
+
+KEY `fk_employees_performance_reviews_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_performance_reviews_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_managers_performance_reviews_employee_id` (`manager_id`),
+CONSTRAINT `fk_managers_performance_reviews_employee_id` FOREIGN KEY (`manager_id`) REFERENCES `employees` (`manager_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+);
