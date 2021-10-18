@@ -13,8 +13,8 @@ USE `employee_salaries`;
 
 -- performance_reviews  *
 
+-- courses *
 -- training_history
--- courses
 
 -- skills
 -- skill_levels
@@ -36,7 +36,7 @@ USE `employee_salaries`;
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE `status` (
-`status`        	ENUM	('new','active','leaving','terminated'),
+`status`        	ENUM	        ('new','active','leaving','terminated'),
 `date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -63,10 +63,10 @@ KEY `index_genders_date_modified`(`date_modified`)
 DROP TABLE IF EXISTS `departments`;
 
 CREATE TABLE `departments` (
-`department_name` 	varchar(30) 	NOT NULL,
+`department_name` 	      varchar(30) 	NOT NULL,
 `department_description` 	varchar(30) 	DEFAULT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`date_created`          	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`         	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`department_name`),
 
@@ -78,7 +78,7 @@ KEY `index_subjects_date_modified`(`date_modified`)
 DROP TABLE IF EXISTS `employees`;
 
 CREATE TABLE `employees` (
-`employee_id`	          bigint	 		NOT NULL AUTO_INCREMENT,
+`employee_id`	          bigint	 		  NOT NULL AUTO_INCREMENT,
 `first_name` 	          varchar(30) 	NOT NULL,
 `last_name` 	          varchar(30) 	NOT NULL,
 `gender`                varchar(30) 	NOT NULL,
@@ -88,8 +88,8 @@ CREATE TABLE `employees` (
 `date_of_birth` 	      date 	        NOT NULL,
 `department_name` 	    varchar(30) 	NOT NULL,
 `initial_basic_pay` 	  varchar(30) 	NOT NULL,
-`status` 	              ENUM	('new','active','leaving','terminated'),
-`employment_start_date` 	varchar(30) 	NOT NULL,
+`status` 	              ENUM	        ('new','active','leaving','terminated'),
+`employment_start_date` varchar(30) 	NOT NULL,
 `employment_end_date` 	varchar(30) 	NOT NULL,
 
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -118,9 +118,9 @@ CONSTRAINT `fk_status_employees_status` FOREIGN KEY (`status`) REFERENCES `statu
 DROP TABLE IF EXISTS `manager_descriptions`;
 
 CREATE TABLE `manager_descriptions` (
-`manager_description`        	ENUM	('Manager','Assistant-manager','Acting-manager'),
-`date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`manager_description`   ENUM	      ('Manager','Assistant-manager','Acting-manager'),
+`date_created`  	      timestamp 	NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	      timestamp 	NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`manager_description`),
 
@@ -133,14 +133,14 @@ KEY `index_pupil_status_date_modified`(`date_modified`)
 DROP TABLE IF EXISTS `managers`;
 
 CREATE TABLE `managers`(
-`manager_id`	          bigint	 		NOT NULL AUTO_INCREMENT,
-`employee_id` 	       bigint 	   NOT NULL,
-`manager_description`  ENUM        ('Manager','Assistant-manager','Acting-manager'),
-`department_name`      varchar(30) NOT NULL,
-`manager_start_date` 	 date 	NOT NULL,
-`manager_end_date` 	   date 	DEFAULT NULL,
-`date_created` 	       timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	     timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`manager_id`	         bigint	 	    NOT NULL AUTO_INCREMENT,
+`employee_id` 	       bigint   	  NOT NULL,
+`manager_description`  ENUM         ('Manager','Assistant-manager','Acting-manager'),
+`department_name`      varchar(30)  NOT NULL,
+`manager_start_date` 	 date 	      NOT NULL,
+`manager_end_date` 	   date 	      DEFAULT NULL,
+`date_created` 	       timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	     timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`manager_id`),
 
@@ -163,14 +163,14 @@ CONSTRAINT `fk_departments_managers_department_name` FOREIGN KEY (`department_na
 DROP TABLE IF EXISTS `performance_reviews`;
 
 CREATE TABLE `performance_reviews`(
-`performance_review_id`	          bigint	 		NOT NULL AUTO_INCREMENT,
-`employee_id` 	       bigint 	   NOT NULL,
-`date of review` 	 date 	NOT NULL,
-`manager_id` 	       bigint 	   NOT NULL,
-`comment_by_employee`      varchar(30) NOT NULL,
-`comment_by_manager` 	 varchar(30) NOT NULL,
-`date_created` 	       timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	     timestamp 	 NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`performance_review_id` bigint	 		  NOT NULL AUTO_INCREMENT,
+`employee_id` 	        bigint 	      NOT NULL,
+`date of review` 	      date 	        NOT NULL,
+`manager_id` 	          bigint 	      NOT NULL,
+`comment_by_employee`   varchar(30)   NOT NULL,
+`comment_by_manager` 	  varchar(30)   NOT NULL,
+`date_created` 	        timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	      timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`performance_review_id`),
 
