@@ -25,7 +25,7 @@ USE `employee_salaries`;
 -- dependants *
 
 -- designations *
--- employee_designations
+-- employee_designations *
 
 -- projects
 -- tasks
@@ -164,7 +164,7 @@ DROP TABLE IF EXISTS `performance_reviews`;
 CREATE TABLE `performance_reviews`(
 `performance_review_id` bigint	 		  NOT NULL AUTO_INCREMENT,
 `employee_id` 	        bigint 	      NOT NULL,
-`date of review` 	      date 	        NOT NULL,
+`date_of_review` 	      date 	        NOT NULL,
 `manager_id` 	          bigint 	      NOT NULL,
 `comment_by_employee`   varchar(30)   NOT NULL,
 `comment_by_manager` 	  varchar(30)   NOT NULL,
@@ -173,7 +173,7 @@ CREATE TABLE `performance_reviews`(
 
 PRIMARY KEY (`performance_review_id`),
 
-KEY `index_performance_reviews_date of review`(`date of review`),
+KEY `index_performance_reviews_date_of_review`(`date_of_review`),
 KEY `index_performance_reviews_date_created`(`date_created`),
 KEY `index_performance_reviews_date_modified`(`date_modified`),
 
@@ -371,3 +371,32 @@ PRIMARY KEY (`designation`),
 KEY `index_designations_date_created`(`date_created`),
 KEY `index_designations_date_modified`(`date_modified`)
 );
+
+
+DROP TABLE IF EXISTS `employee_designations`;
+
+CREATE TABLE `employee_designations`(
+`employee_designation_id`   bigint	 		  NOT NULL AUTO_INCREMENT,
+`employee_id` 	            bigint 	      NOT NULL,
+`designation`               varchar(30) 	NOT NULL,
+`designation_start_date`    date 	        NOT NULL,
+`designation_end_date` 	    date 	        NOT NULL,
+`date_created` 	            timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	          timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`employee_designation_id`),
+
+KEY `index_employee_designations_designation_start_date`(`designation_start_date`),
+KEY `index_employee_designations_designation_end_date`(`designation_end_date`),
+KEY `index_employee_designations_date_created`(`date_created`),
+KEY `index_employee_designations_date_modified`(`date_modified`),
+
+UNIQUE KEY `uindex_employee_designations_employee_id_designation`(`employee_id`,`designation`),
+
+KEY `fk_employees_employee_designations_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_employee_designations_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_designations_employee_designations_designation` (`designation`),
+CONSTRAINT `fk_designations_employee_designations_designation` FOREIGN KEY (`designation`) REFERENCES `designations` (`designation`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
