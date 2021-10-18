@@ -301,3 +301,17 @@ PRIMARY KEY (`relationship`),
 KEY `index_relationships_date_created`(`date_created`),
 KEY `index_relationships_date_modified`(`date_modified`)
 );
+
+
+DROP TABLE IF EXISTS `relationship_descriptions`;
+
+CREATE TABLE `relationship_descriptions` (
+`relationship_description`     ENUM('Next of Kin','Family','Friend') NOT NULL,
+`date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`relationship_description`),
+
+KEY `index_relationship_descriptions_date_created`(`date_created`),
+KEY `index_relationship_descriptions_date_modified`(`date_modified`)
+);
