@@ -18,7 +18,7 @@ USE `employee_salaries`;
 
 -- skills *
 -- skill_levels *
--- employee_skills
+-- employee_skills *
 
 -- relationships
 -- relationship_descriptions
@@ -256,4 +256,34 @@ PRIMARY KEY (`skill_level`),
 
 KEY `index_skill_levels_date_created`(`date_created`),
 KEY `index_skill_levels_modified`(`date_modified`)
+);
+
+
+DROP TABLE IF EXISTS `employee_skills`;
+
+CREATE TABLE `employee_skills`(
+`employee_skill_id`   bigint	 		  NOT NULL AUTO_INCREMENT,
+`employee_id` 	      bigint 	      NOT NULL,
+`skill_name`          varchar(30)   NOT NULL,
+`skill_level`         ENUM(' Novice','Advanced Beginner','Competent',' Proficient',' Expert') NOT NULL,
+`date_acquired` 	    date 	        DEFAULT NULL,
+`date_created` 	      timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	    timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`employee_skill_id`),
+
+KEY `index_employee_skills_date_acquired`(`date_acquired`),
+KEY `index_employee_skills_date_created`(`date_created`),
+KEY `index_employee_skills_date_modified`(`date_modified`),
+
+UNIQUE KEY `uindex_employee_skills_employee_id_skill_name`(`employee_id`,`skill_name`),
+
+KEY `fk_employees_employee_skills_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_employee_skills_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_skills_employee_skills_skill_name` (`skill_name`),
+CONSTRAINT `fk_skills_employee_skills_skill_name` FOREIGN KEY (`skill_name`) REFERENCES `skills` (`skill_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_skill_levels_skills_skill_level` (`skill_level`),
+CONSTRAINT `fk_skill_levels_skills_skill_level` FOREIGN KEY (`skill_level`) REFERENCES `skill_levels` (`skill_level`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
