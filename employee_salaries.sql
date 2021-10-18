@@ -28,7 +28,7 @@ USE `employee_salaries`;
 -- employee_designations *
 
 -- projects *
--- tasks
+-- tasks*
 
 -- earning
 -- deductions
