@@ -16,7 +16,7 @@ USE `employee_salaries`;
 -- courses *
 -- training_histories *
 
--- skills
+-- skills *
 -- skill_levels
 -- employee_skills
 
@@ -227,4 +227,19 @@ CONSTRAINT `fk_employees_training_histories_employee_id` FOREIGN KEY (`employee_
 
 KEY `fk_courses_training_histories_course_name` (`course_name`),
 CONSTRAINT `fk_courses_training_histories_course_name` FOREIGN KEY (`course_name`) REFERENCES `courses` (`course_name`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+DROP TABLE IF EXISTS `skills`;
+
+CREATE TABLE `skills` (
+`skill_name` 	        varchar(30) 	NOT NULL,
+`skill_description` 	varchar(30) 	DEFAULT NULL,
+`date_created`        timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`       timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`skill_name`),
+
+KEY `index_skills_date_created`(`date_created`),
+KEY `index_skills_date_modified`(`date_modified`)
 );
