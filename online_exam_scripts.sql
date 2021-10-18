@@ -26,10 +26,10 @@ USE `online_exam`;
 DROP TABLE IF EXISTS `streams`;
 
 CREATE TABLE `streams` (
-`stream_name` 	varchar(30) 	NOT NULL,
+`stream_name`  	      varchar(30) 	NOT NULL,
 `stream_description` 	varchar(30) 	DEFAULT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`date_created` 	      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`stream_name`),
 
@@ -52,12 +52,12 @@ VALUES
 DROP TABLE IF EXISTS `classes`;
 
 CREATE TABLE `classes` (
-`class_id`	bigint	 		NOT NULL AUTO_INCREMENT,
-`class_name` 	varchar(30) 	NOT NULL,
-`stream_name` 	varchar(30) 	DEFAULT NULL,
-`class_description` 	varchar(30) 	DEFAULT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`class_id`	         bigint	 		NOT NULL AUTO_INCREMENT,
+`class_name` 	       varchar(30) 	NOT NULL,
+`stream_name` 	     varchar(30) 	DEFAULT NULL,
+`class_description`  varchar(30) 	DEFAULT NULL,
+`date_created` 	     timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`class_id`),
 
@@ -88,10 +88,10 @@ VALUES
 DROP TABLE IF EXISTS `subjects`;
 
 CREATE TABLE `subjects` (
-`subject_name` 	varchar(30) 	NOT NULL,
+`subject_name` 	        varchar(30) 	NOT NULL,
 `subject_description` 	varchar(30) 	DEFAULT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`date_created` 	        timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`subject_name`),
 
@@ -114,9 +114,9 @@ VALUES
 DROP TABLE IF EXISTS `genders`;
 
 CREATE TABLE `genders` (
-`gender`	varchar(30) 	NOT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`gender`	       varchar(30) 	NOT NULL,
+`date_created`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`  timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`gender`),
 
@@ -133,16 +133,16 @@ VALUES
 DROP TABLE IF EXISTS `teachers`;
 
 CREATE TABLE `teachers` (
-`teacher_id`	bigint	 		NOT NULL AUTO_INCREMENT,
-`first_name` 	varchar(30) 	NOT NULL,
-`last_name` 	varchar(30) 	NOT NULL,
-`designation` 	varchar(30) 	DEFAULT NULL,
-`gender`  varchar(30) 	NOT NULL,
-`id_number` 	varchar(30) 	NOT NULL,
+`teacher_id`		bigint	 			NOT NULL AUTO_INCREMENT,
+`first_name` 		varchar(30) 	NOT NULL,
+`last_name` 		varchar(30) 	NOT NULL,
+`designation`  	varchar(30) 	DEFAULT NULL,
+`gender`  			varchar(30) 	NOT NULL,
+`id_number` 		varchar(30) 	NOT NULL,
 `phone_number` 	varchar(30) 	NOT NULL,
-`email_address` 	varchar(30) 	NOT NULL,
+`email_address`	varchar(30) 	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`date_modified` timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`teacher_id`),
 
@@ -175,13 +175,13 @@ VALUES
 DROP TABLE IF EXISTS `teacher_class`;
 
 CREATE TABLE `teacher_class` (
-`teacher_class_id` 			bigint 			NOT NULL AUTO_INCREMENT,
-`class_id` 		bigint  			NOT NULL,
-`teacher_id` 		bigint  			NOT NULL,
-`subject_name` 		varchar(30) 	NOT NULL,
-`description`	varchar(50) 	 NULL,
-`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`teacher_class_id`		bigint 				NOT NULL AUTO_INCREMENT,
+`class_id` 						bigint  			NOT NULL,
+`teacher_id` 					bigint  			NOT NULL,
+`subject_name` 				varchar(30) 	NOT NULL,
+`description`					varchar(50) 	NULL,
+`date_created` 				timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 			timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`teacher_class_id`),
 
@@ -211,14 +211,14 @@ VALUES
 DROP TABLE IF EXISTS `parents`;
 
 CREATE TABLE `parents` (
-`parent_id`	bigint	 		NOT NULL AUTO_INCREMENT,
-`first_name` 	varchar(30) 	NOT NULL,
-`last_name` 	varchar(30) 	NOT NULL,
-`gender`  varchar(30) 	NOT NULL,
-`id_number` 	varchar(30) 	NOT NULL,
-`phone_number` 	varchar(30) 	NOT NULL,
-`email_address` 	varchar(30) 	NOT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`parent_id`				bigint	 			NOT NULL AUTO_INCREMENT,
+`first_name` 			varchar(30) 	NOT NULL,
+`last_name` 			varchar(30) 	NOT NULL,
+`gender`  				varchar(30) 	NOT NULL,
+`id_number` 			varchar(30) 	NOT NULL,
+`phone_number` 		varchar(30) 	NOT NULL,
+`email_address`		varchar(30) 	NOT NULL,
+`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`parent_id`),
@@ -252,9 +252,9 @@ VALUES
 DROP TABLE IF EXISTS `pupil_status`;
 
 CREATE TABLE `pupil_status` (
-`status` 	ENUM	('Active','Inactive'),
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`status` 	ENUM('Active','Inactive') NOT NULL,
+`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`status`),
 
@@ -271,14 +271,14 @@ VALUES
 DROP TABLE IF EXISTS `pupils`;
 
 CREATE TABLE `pupils` (
-`pupil_id`	bigint	 		NOT NULL AUTO_INCREMENT,
-`class_id` 		bigint  			NOT NULL,
-`first_name` 	varchar(30) 	NOT NULL,
-`last_name` 	varchar(30) 	NOT NULL,
-`gender`  varchar(30) 	NOT NULL,
-`date_of_birth` 	date	NOT NULL,
-`status`  ENUM	('Active','Inactive'),
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`pupil_id`				bigint	 			NOT NULL AUTO_INCREMENT,
+`class_id` 				bigint  			NOT NULL,
+`first_name` 			varchar(30) 	NOT NULL,
+`last_name` 			varchar(30) 	NOT NULL,
+`gender`  				varchar(30) 	NOT NULL,
+`date_of_birth`		date					NOT NULL,
+`status`  				ENUM('Active','Inactive') NOT NULL,
+`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`pupil_id`),
@@ -326,12 +326,12 @@ VALUES
 DROP TABLE IF EXISTS `pupil_parent`;
 
 CREATE TABLE `pupil_parent` (
-`pupil_parent_id` 			bigint 			NOT NULL AUTO_INCREMENT,
-`pupil_id` 		bigint  			NOT NULL,
-`parent_id` 		bigint  			NOT NULL,
-`description`	varchar(50) 	 NULL,
-`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`pupil_parent_id` 	bigint 				NOT NULL AUTO_INCREMENT,
+`pupil_id` 					bigint  			NOT NULL,
+`parent_id` 				bigint  			NOT NULL,
+`description`				varchar(50)		NULL,
+`date_created` 			timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`			timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`pupil_parent_id`),
 
@@ -360,10 +360,10 @@ VALUES
 DROP TABLE IF EXISTS `terms`;
 
 CREATE TABLE `terms` (
-`term_name` 	varchar(30) 	NOT NULL,
-`term_description` 	varchar(30) 	NOT NULL,
-`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`term_name` 					varchar(30) 	NOT NULL,
+`term_description`		varchar(30) 	NOT NULL,
+`date_created` 				timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 			timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`term_name`),
 
@@ -381,16 +381,16 @@ VALUES
 DROP TABLE IF EXISTS `exams`;
 
 CREATE TABLE `exams` (
-`exam_id` 			bigint 			NOT NULL AUTO_INCREMENT,
-`teacher_id` 		bigint  			NOT NULL,
-`subject_name` 		varchar(30) 	NOT NULL,
-`class_id` 		bigint  			NOT NULL,
-`term_name` 		varchar(30)  			NOT NULL,
-`exam_title`	varchar(50) 	NOT NULL,
-`exam_date`	date 	NOT NULL,
-`exam_duration`	time 	NOT NULL,
-`total_questions`	varchar(50) 	NOT NULL,
-`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`exam_id` 						bigint 			NOT NULL AUTO_INCREMENT,
+`teacher_id` 				bigint  			NOT NULL,
+`subject_name` 			varchar(30) 	NOT NULL,
+`class_id` 					bigint  			NOT NULL,
+`term_name` 				varchar(30)  	NOT NULL,
+`exam_title`				varchar(50) 	NOT NULL,
+`exam_date`					date 					NOT NULL,
+`exam_duration`			time 					NOT NULL,
+`total_questions`		varchar(50) 	NOT NULL,
+`date_created` 			timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`exam_id`),
@@ -423,12 +423,12 @@ VALUES
 DROP TABLE IF EXISTS `questions`;
 
 CREATE TABLE `questions` (
-`question_id` 			bigint 			NOT NULL AUTO_INCREMENT,
-`exam_id` 		bigint  			NOT NULL,
-`question_description`	varchar(50) 	NOT NULL,
-`marks`	varchar(50) 	NOT NULL,
-`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`question_id` 						bigint 				NOT NULL AUTO_INCREMENT,
+`exam_id` 								bigint  			NOT NULL,
+`question_description`		varchar(50) 	NOT NULL,
+`marks`										varchar(50)		NOT NULL,
+`date_created` 						timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 					timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`question_id`),
 
@@ -462,10 +462,10 @@ DROP TABLE IF EXISTS `choices`;
     CREATE TABLE `choices` (
 `choice_id` 			bigint 			NOT NULL AUTO_INCREMENT,
 `question_id` 		bigint  			NOT NULL,
-`choice_label`	varchar(50) 	NOT NULL,
-`remark`	ENUM	('Wrong','Correct'),
+`choice_label`		varchar(50) 	NOT NULL,
+`remark`					ENUM	('Wrong','Correct')		NOT NULL,
 `date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-`date_modified` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+`date_modified`		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 PRIMARY KEY (`choice_id`),
 
@@ -473,7 +473,7 @@ KEY `index_choices_date_created`(`date_created`),
 KEY `index_choices_date_modified`(`date_modified`),
 KEY `index_choices_remark`(`remark`),
 
-UNIQUE KEY `uindex_choice_question_id_choice_label`(`question_id`,`choice_label`),
+UNIQUE KEY `uindex_choices_question_id_choice_label`(`question_id`,`choice_label`),
 
 KEY `fk_questions_choices_question_id` (`question_id`),
 CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE RESTRICT ON UPDATE CASCADE
