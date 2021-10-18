@@ -91,7 +91,6 @@ CREATE TABLE `employees` (
 `status` 	              ENUM	        ('new','active','leaving','terminated'),
 `employment_start_date` varchar(30) 	NOT NULL,
 `employment_end_date` 	varchar(30) 	NOT NULL,
-
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -174,7 +173,6 @@ CREATE TABLE `performance_reviews`(
 
 PRIMARY KEY (`performance_review_id`),
 
-
 KEY `index_performance_reviews_date of review`(`date of review`),
 KEY `index_performance_reviews_date_created`(`date_created`),
 KEY `index_performance_reviews_date_modified`(`date_modified`),
@@ -185,3 +183,21 @@ CONSTRAINT `fk_employees_performance_reviews_employee_id` FOREIGN KEY (`employee
 KEY `fk_managers_performance_reviews_manager_id` (`manager_id`),
 CONSTRAINT `fk_managers_performance_reviews_manager_id` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`manager_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+
+DROP TABLE IF EXISTS `courses`;
+
+CREATE TABLE `courses` (
+`course_name` 			   varchar(30) 	NOT NULL,
+`course_description` 	 varchar(30) 	NOT NULL,
+`course_institution` 	 varchar(30) 	NOT NULL,
+`course_cost` 	       varchar(30) 	NOT NULL,
+`course_duration`	     varchar(30) 	NOT NULL,
+`date_created` 		     timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 		   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`course_name`),
+
+KEY `index_courses_date_created`(`date_created`),
+KEY `index_courses_date_modified`(`date_modified`)
+) ;
