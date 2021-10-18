@@ -36,7 +36,7 @@ USE `employee_salaries`;
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE `status` (
-`status`        	ENUM	        ('new','active','leaving','terminated'),
+`status`        	ENUM('new','active','leaving','terminated') NOT NULL,
 `date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -88,7 +88,7 @@ CREATE TABLE `employees` (
 `date_of_birth` 	      date 	        NOT NULL,
 `department_name` 	    varchar(30) 	NOT NULL,
 `initial_basic_pay` 	  varchar(30) 	NOT NULL,
-`status` 	              ENUM	        ('new','active','leaving','terminated'),
+`status` 	              ENUM('new','active','leaving','terminated') NOT NULL,
 `employment_start_date` varchar(30) 	NOT NULL,
 `employment_end_date` 	varchar(30) 	NOT NULL,
 `date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -117,7 +117,7 @@ CONSTRAINT `fk_status_employees_status` FOREIGN KEY (`status`) REFERENCES `statu
 DROP TABLE IF EXISTS `manager_descriptions`;
 
 CREATE TABLE `manager_descriptions` (
-`manager_description`   ENUM	      ('Manager','Assistant-manager','Acting-manager'),
+`manager_description`   ENUM('Manager','Assistant-manager','Acting-manager') NOT NULL,
 `date_created`  	      timestamp 	NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified` 	      timestamp 	NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS `managers`;
 CREATE TABLE `managers`(
 `manager_id`	         bigint	 	    NOT NULL AUTO_INCREMENT,
 `employee_id` 	       bigint   	  NOT NULL,
-`manager_description`  ENUM         ('Manager','Assistant-manager','Acting-manager'),
+`manager_description`  ENUM('Manager','Assistant-manager','Acting-manager') NOT NULL,
 `department_name`      varchar(30)  NOT NULL,
 `manager_start_date` 	 date 	      NOT NULL,
 `manager_end_date` 	   date 	      DEFAULT NULL,
@@ -248,7 +248,7 @@ KEY `index_skills_date_modified`(`date_modified`)
 DROP TABLE IF EXISTS `skill_levels`;
 
 CREATE TABLE `skill_levels` (
-`skill_level`     ENUM	        (' Novice','Advanced Beginner','Competent',' Proficient',' Expert'),
+`skill_level`     ENUM(' Novice','Advanced Beginner','Competent',' Proficient',' Expert') NOT NULL,
 `date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 `date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
