@@ -21,8 +21,8 @@ USE `employee_salaries`;
 -- employee_skills *
 
 -- relationships *
--- relationship_descriptions
--- dependants
+-- relationship_descriptions *
+-- dependants *
 
 -- designations
 -- employee_designations
@@ -314,4 +314,45 @@ PRIMARY KEY (`relationship_description`),
 
 KEY `index_relationship_descriptions_date_created`(`date_created`),
 KEY `index_relationship_descriptions_date_modified`(`date_modified`)
+);
+
+
+DROP TABLE IF EXISTS `dependants`;
+
+CREATE TABLE `dependants` (
+`dependant_id`	              bigint	 		  NOT NULL AUTO_INCREMENT,
+`employee_id` 	              bigint 	      NOT NULL,
+`first_name` 	                varchar(30) 	NOT NULL,
+`last_name` 	                varchar(30) 	NOT NULL,
+`gender`                      varchar(30) 	NOT NULL,
+`relationship`                ENUM(' Father','Mother','Spouse',' Sister','Brother',' Daughter','Son','Extended Family','Friend') NOT NULL,
+`relationship_description`    ENUM('Next of Kin','Family','Friend') NOT NULL,
+`date_of_birth` 	            date 	        NOT NULL,
+`id_number` 	                varchar(30) 	DEFAULT NULL,
+`phone_number` 	              varchar(30) 	DEFAULT NULL,
+`email_address` 	            varchar(30) 	DEFAULT NULL,
+`date_created` 	              timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified` 	            timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`dependant_id`),
+
+KEY `index_dependants_id_number`(`id_number`),
+KEY `index_dependants_phone_number`(`phone_number`),
+KEY `index_dependants_email_address`(`email_address`),
+KEY `index_dependants_date_created`(`date_created`),
+KEY `index_dependants_date_modified`(`date_modified`),
+
+UNIQUE KEY `uindex_dependants_dependant_id_employee_id` (`dependant_id`,`employee_id`),
+
+KEY `fk_employees_dependants_employee_id` (`employee_id`),
+CONSTRAINT `fk_employees_dependants_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_genders_dependants_gender` (`gender`),
+CONSTRAINT `fk_genders_dependants_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_relationships_dependants_relationship` (`relationship`),
+CONSTRAINT `fk_relationships_dependants_relationship` FOREIGN KEY (`relationship`) REFERENCES `relationships` (`relationship`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+KEY `fk_relationship_descriptions_dependants_relationship_description` (`relationship_description`),
+CONSTRAINT `fk_relationship_descriptions_dependants_relationship_description` FOREIGN KEY (`relationship_description`) REFERENCES `relationship_descriptions` (`relationship_description`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
