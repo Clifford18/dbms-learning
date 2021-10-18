@@ -17,7 +17,7 @@ USE `employee_salaries`;
 -- training_histories *
 
 -- skills *
--- skill_levels
+-- skill_levels *
 -- employee_skills
 
 -- relationships
@@ -242,4 +242,18 @@ PRIMARY KEY (`skill_name`),
 
 KEY `index_skills_date_created`(`date_created`),
 KEY `index_skills_date_modified`(`date_modified`)
+);
+
+
+DROP TABLE IF EXISTS `skill_levels`;
+
+CREATE TABLE `skill_levels` (
+`skill_level`     ENUM	        (' Novice','Advanced Beginner','Competent',' Proficient',' Expert'),
+`date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+PRIMARY KEY (`skill_level`),
+
+KEY `index_skill_levels_date_created`(`date_created`),
+KEY `index_skill_levels_modified`(`date_modified`)
 );
