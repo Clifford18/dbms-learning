@@ -23,12 +23,12 @@ CREATE PROCEDURE generate_choices_exam2()
 BEGIN
   DECLARE i INT DEFAULT 26;
   WHILE i < 51 DO
-    INSERT INTO `choices` (`question_id`,`choice_label`,`remark`) 
+    INSERT INTO `choices` (`question_id`,`choice_label`,`choice_description`,`remark`) 
 		VALUES 
-        (i,'A','Wrong'),
-        (i,'B','Wrong'),
-        (i,'C','Correct'),
-        (i,'D','Wrong');
+        (i,'A',concat('choice_description - ',i ),'Wrong'),
+        (i,'B',concat('choice_description - ',i ),'Wrong'),
+        (i,'C',concat('choice_description - ',i ),'Correct'),
+        (i,'D',concat('choice_description - ',i ),'Wrong');
     SET i = i + 1;
   END WHILE;
 END$$
