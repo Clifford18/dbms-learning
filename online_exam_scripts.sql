@@ -3,26 +3,8 @@
 	CREATE DATABASE `online_exam`;
 
 	USE `online_exam`;
--- -- --entities
 
--- stream***
--- classes***
 
--- subjects***
--- genders****
--- teachers***
--- -- teacher_class***
-
--- parents***
--- status****
--- pupils***
--- --parent_pupil**
-
--- terms**
--- exams**
--- questions**
--- choices***
--- answers**
 		DROP TABLE IF EXISTS `streams`;
 		CREATE TABLE `streams` (
 		`stream_name`  	      varchar(30) 	NOT NULL,
@@ -59,6 +41,8 @@
 
 		PRIMARY KEY (`class_id`),
 
+		KEY `index_classes_class_name`(`class_name`),
+		KEY `index_classes_stream_name`(`stream_name`),
 		KEY `index_classes_date_created`(`date_created`),
 		KEY `index_classes_date_modified`(`date_modified`),
 
@@ -141,6 +125,8 @@
 
 		PRIMARY KEY (`teacher_id`),
 
+		KEY `index_teachers_designation`(`designation`),
+		KEY `index_teachers_gender`(`gender`),
 		KEY `index_teachers_phone_number`(`phone_number`),
 		KEY `index_teachers_email_address`(`email_address`),
 		KEY `index_teachers_date_created`(`date_created`),
@@ -179,6 +165,9 @@
 
 		PRIMARY KEY (`teacher_class_id`),
 
+		KEY `index_teacher_class_class_id`(`class_id`),
+		KEY `index_teacher_class_teacher_id`(`teacher_id`),
+		KEY `index_teacher_class_subject_name`(`subject_name`),
 		KEY `index_teacher_class_date_created`(`date_created`),
 		KEY `index_teacher_class_date_modified`(`date_modified`),
 
@@ -216,6 +205,7 @@
 
 		PRIMARY KEY (`parent_id`),
 
+		KEY `index_parents_gender`(`gender`),
 		KEY `index_parents_phone_number`(`phone_number`),
 		KEY `index_parents_email_address`(`email_address`),
 		KEY `index_parents_date_created`(`date_created`),
@@ -242,25 +232,6 @@
 		('Firstname11', 'Lastname11','Female','12345K','254722123456','pf11l11@gmail.com');
 
 
-		DROP TABLE IF EXISTS `pupil_status`;
-
-		CREATE TABLE `pupil_status` (
-		`status` 	ENUM('Active','Inactive') NOT NULL,
-		`date_created` 		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-		`date_modified`		timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-		PRIMARY KEY (`status`),
-
-		KEY `index_pupil_status_date_created`(`date_created`),
-		KEY `index_pupil_status_date_modified`(`date_modified`)
-		);
-
-		INSERT INTO pupil_status (status)
-		VALUES
-		('Active'),
-		('Inactive');
-
-
 		DROP TABLE IF EXISTS `pupils`;
 		CREATE TABLE `pupils` (
 		`pupil_id`				bigint	 			NOT NULL AUTO_INCREMENT,
@@ -275,15 +246,15 @@
 
 		PRIMARY KEY (`pupil_id`),
 
+		KEY `index_pupils_class_id`(`class_id`),
+		KEY `index_pupils_gender`(`gender`),
 		KEY `index_pupils_date_of_birth`(`date_of_birth`),
+		KEY `index_pupils_status`(`status`),
 		KEY `index_pupils_date_created`(`date_created`),
 		KEY `index_pupils_date_modified`(`date_modified`),
 
 		KEY `fk_genders_pupils_gender` (`gender`),
 		CONSTRAINT `fk_genders_pupils_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
-
-		KEY `fk_pupil_status_pupils_status` (`status`),
-		CONSTRAINT `fk_pupil_status_pupils_status` FOREIGN KEY (`status`) REFERENCES `pupil_status` (`status`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
 		KEY `fk_classes_pupils_class_id` (`class_id`),
 		CONSTRAINT `fk_classes_pupils_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -326,6 +297,8 @@
 
 		PRIMARY KEY (`pupil_parent_id`),
 
+		KEY `index_pupil_parent_pupil_id`(`pupil_id`),
+		KEY `index_pupil_parent_parent_id`(`parent_id`),
 		KEY `index_pupil_parent_date_created`(`date_created`),
 		KEY `index_pupil_parent_date_modified`(`date_modified`),
 
@@ -385,6 +358,10 @@
 
 		PRIMARY KEY (`exam_id`),
 
+		KEY `index_exams_teacher_id`(`teacher_id`),
+		KEY `index_exams_subject_name`(`subject_name`),
+		KEY `index_exams_class_id`(`class_id`),
+		KEY `index_exams_exam_date`(`exam_date`),
 		KEY `index_exams_date_created`(`date_created`),
 		KEY `index_exams_date_modified`(`date_modified`),
 
@@ -422,6 +399,7 @@
 
 		PRIMARY KEY (`question_id`),
 
+		KEY `index_questions_exam_id`(`exam_id`),
 		KEY `index_questions_date_created`(`date_created`),
 		KEY `index_questions_date_modified`(`date_modified`),
 
@@ -459,9 +437,11 @@
 
 		PRIMARY KEY (`choice_id`),
 
+		KEY `index_choices_question_id`(`question_id`),
+		KEY `index_choices_choice_label`(`choice_label`),
+		KEY `index_choices_remark`(`remark`),
 		KEY `index_choices_date_created`(`date_created`),
 		KEY `index_choices_date_modified`(`date_modified`),
-		KEY `index_choices_remark`(`remark`),
 
 		UNIQUE KEY `uindex_choices_question_id_choice_label`(`question_id`,`choice_label`),
 
@@ -499,6 +479,8 @@
 
 		PRIMARY KEY (`answer_id`),
 
+		KEY `index_answers_pupil_id`(`pupil_id`),
+		KEY `index_answers_question_id`(`question_id`),
 		KEY `index_answers_date_created`(`date_created`),
 		KEY `index_answers_date_modified`(`date_modified`),
 
