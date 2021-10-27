@@ -33,18 +33,6 @@
 -- earning
 -- deductions
 
-    DROP TABLE IF EXISTS `status`;
-    CREATE TABLE `status` (
-    `status`        	ENUM('new','active','leaving','terminated') NOT NULL,
-    `date_created`  	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_modified` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (`status`),
-
-    KEY `index_pupil_status_date_created`(`date_created`),
-    KEY `index_pupil_status_date_modified`(`date_modified`)
-    );
-
 
     DROP TABLE IF EXISTS `genders`;
     CREATE TABLE `genders` (
@@ -93,8 +81,13 @@
 
     PRIMARY KEY (`employee_id`),
 
+    KEY `index_employees_gender`(`gender`),
     KEY `index_employees_phone_number`(`phone_number`),
     KEY `index_employees_email_address`(`email_address`),
+    KEY `index_employees_department_name`(`department_name`),
+    KEY `index_employees_status`(`status`),
+    KEY `index_employees_employment_start_date`(`employment_start_date`),
+    KEY `index_employees_employment_end_date`(`employment_end_date`),
     KEY `index_employees_date_created`(`date_created`),
     KEY `index_employees_date_modified`(`date_modified`),
 
@@ -104,18 +97,15 @@
     CONSTRAINT `fk_genders_employees_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
     KEY `fk_departments_employees_gender` (`department_name`),
-    CONSTRAINT `fk_departments_employees_gender` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
-
-    KEY `fk_status_employees_status` (`status`),
-    CONSTRAINT `fk_status_employees_status` FOREIGN KEY (`status`) REFERENCES `status` (`status`) ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT `fk_departments_employees_gender` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
     );
 
 
     DROP TABLE IF EXISTS `manager_descriptions`;
     CREATE TABLE `manager_descriptions` (
-    `manager_description`   ENUM('Manager','Assistant-manager','Acting-manager') NOT NULL,
-    `date_created`  	      timestamp 	NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_modified` 	      timestamp 	NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `manager_description`   varchar(30)   NOT NULL,
+    `date_created`  	      timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified` 	      timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`manager_description`),
 
@@ -128,7 +118,7 @@
     CREATE TABLE `managers`(
     `manager_id`	         bigint	 	    NOT NULL AUTO_INCREMENT,
     `employee_id` 	       bigint   	  NOT NULL,
-    `manager_description`  ENUM('Manager','Assistant-manager','Acting-manager') NOT NULL,
+    `manager_description`  varchar(30)  NOT NULL,
     `department_name`      varchar(30)  NOT NULL,
     `manager_start_date` 	 date 	      NOT NULL,
     `manager_end_date` 	   date 	      DEFAULT NULL,
@@ -137,6 +127,9 @@
 
     PRIMARY KEY (`manager_id`),
 
+    KEY `index_managers_employee_id`(`employee_id`),
+    KEY `index_managers_manager_description`(`manager_description`),
+    KEY `index_managers_department_name`(`department_name`),
     KEY `index_managers_manager_start_date`(`manager_start_date`),
     KEY `index_managers_manager_end_date`(`manager_end_date`),
     KEY `index_managers_date_created`(`date_created`),
@@ -166,7 +159,9 @@
 
     PRIMARY KEY (`performance_review_id`),
 
+    KEY `index_performance_reviews_employee_id`(`employee_id`),
     KEY `index_performance_reviews_date_of_review`(`date_of_review`),
+    KEY `index_performance_reviews_manager_id`(`manager_id`),
     KEY `index_performance_reviews_date_created`(`date_created`),
     KEY `index_performance_reviews_date_modified`(`date_modified`),
 
@@ -235,19 +230,6 @@
     );
 
 
-    DROP TABLE IF EXISTS `skill_levels`;
-    CREATE TABLE `skill_levels` (
-    `skill_level`     ENUM(' Novice','Advanced Beginner','Competent',' Proficient',' Expert') NOT NULL,
-    `date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (`skill_level`),
-
-    KEY `index_skill_levels_date_created`(`date_created`),
-    KEY `index_skill_levels_date_modified`(`date_modified`)
-    );
-
-
     DROP TABLE IF EXISTS `employee_skills`;
     CREATE TABLE `employee_skills`(
     `employee_skill_id`   bigint	 		  NOT NULL AUTO_INCREMENT,
@@ -260,6 +242,9 @@
 
     PRIMARY KEY (`employee_skill_id`),
 
+    KEY `index_employee_skills_employee_id`(`employee_id`),
+    KEY `index_employee_skills_skill_name`(`skill_name`),
+    KEY `index_employee_skills_skill_level`(`skill_level`),
     KEY `index_employee_skills_date_acquired`(`date_acquired`),
     KEY `index_employee_skills_date_created`(`date_created`),
     KEY `index_employee_skills_date_modified`(`date_modified`),
@@ -270,38 +255,8 @@
     CONSTRAINT `fk_employees_employee_skills_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
     KEY `fk_skills_employee_skills_skill_name` (`skill_name`),
-    CONSTRAINT `fk_skills_employee_skills_skill_name` FOREIGN KEY (`skill_name`) REFERENCES `skills` (`skill_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
-
-    KEY `fk_skill_levels_skills_skill_level` (`skill_level`),
-    CONSTRAINT `fk_skill_levels_skills_skill_level` FOREIGN KEY (`skill_level`) REFERENCES `skill_levels` (`skill_level`) ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT `fk_skills_employee_skills_skill_name` FOREIGN KEY (`skill_name`) REFERENCES `skills` (`skill_name`) ON DELETE RESTRICT ON UPDATE CASCADE
     );
-
-
-    DROP TABLE IF EXISTS `relationships`;
-    CREATE TABLE `relationships` (
-    `relationship`     ENUM(' Father','Mother','Spouse',' Sister','Brother',' Daughter','Son','Extended Family','Friend') NOT NULL,
-    `date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (`relationship`),
-
-    KEY `index_relationships_date_created`(`date_created`),
-    KEY `index_relationships_date_modified`(`date_modified`)
-    );
-
-
-    DROP TABLE IF EXISTS `relationship_descriptions`;
-    CREATE TABLE `relationship_descriptions` (
-    `relationship_description`     ENUM('Next of Kin','Family','Friend') NOT NULL,
-    `date_created`    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_modified`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-
-    PRIMARY KEY (`relationship_description`),
-
-    KEY `index_relationship_descriptions_date_created`(`date_created`),
-    KEY `index_relationship_descriptions_date_modified`(`date_modified`)
-    );
-
 
     DROP TABLE IF EXISTS `dependants`;
     CREATE TABLE `dependants` (
@@ -321,6 +276,10 @@
 
     PRIMARY KEY (`dependant_id`),
 
+    KEY `index_dependants_employee_id`(`employee_id`),
+    KEY `index_dependants_gender`(`gender`),
+    KEY `index_dependants_relationship`(`relationship`),
+    KEY `index_dependants_relationship_description`(`relationship_description`),
     KEY `index_dependants_id_number`(`id_number`),
     KEY `index_dependants_phone_number`(`phone_number`),
     KEY `index_dependants_email_address`(`email_address`),
@@ -333,13 +292,7 @@
     CONSTRAINT `fk_employees_dependants_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
     KEY `fk_genders_dependants_gender` (`gender`),
-    CONSTRAINT `fk_genders_dependants_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
-
-    KEY `fk_relationships_dependants_relationship` (`relationship`),
-    CONSTRAINT `fk_relationships_dependants_relationship` FOREIGN KEY (`relationship`) REFERENCES `relationships` (`relationship`) ON DELETE RESTRICT ON UPDATE CASCADE,
-
-    KEY `fk_relationship_descriptions_dependants_relationship_description` (`relationship_description`),
-    CONSTRAINT `fk_relationship_descriptions_dependants_relationship_description` FOREIGN KEY (`relationship_description`) REFERENCES `relationship_descriptions` (`relationship_description`) ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT `fk_genders_dependants_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
     );
 
 
