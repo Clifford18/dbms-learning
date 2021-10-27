@@ -56,8 +56,8 @@
 
     PRIMARY KEY (`department_name`),
 
-    KEY `index_subjects_date_created`(`date_created`),
-    KEY `index_subjects_date_modified`(`date_modified`)
+    KEY `index_departments_date_created`(`date_created`),
+    KEY `index_departments_date_modified`(`date_modified`)
     );
 
 
@@ -109,8 +109,8 @@
 
     PRIMARY KEY (`manager_description`),
 
-    KEY `index_pupil_status_date_created`(`date_created`),
-    KEY `index_pupil_status_date_modified`(`date_modified`)
+    KEY `index_manager_descriptions_date_created`(`date_created`),
+    KEY `index_manager_descriptions_date_modified`(`date_modified`)
     );
 
 
@@ -381,3 +381,15 @@
     KEY `fk_projects_tasks_project_id` (`project_id`),
     CONSTRAINT `fk_projects_tasks_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`) ON DELETE RESTRICT ON UPDATE CASCADE
     ) ;
+
+    DROP TABLE IF EXISTS `earning_names`;
+    CREATE TABLE `earning_names` (
+    `earning_name`   varchar(30)   NOT NULL,
+    `date_created`  	      timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified` 	      timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`earning_name`),
+
+    KEY `index_earning_names_date_created`(`date_created`),
+    KEY `index_earning_names_date_modified`(`date_modified`)
+    );
