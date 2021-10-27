@@ -433,3 +433,29 @@
     KEY `index_deduction_names_date_created`(`date_created`),
     KEY `index_deduction_names_date_modified`(`date_modified`)
     );
+
+
+    DROP TABLE IF EXISTS `deductions`;
+    CREATE TABLE `deductions` (
+    `deduction_id` 			      varchar(30) 	NOT NULL,
+    `employee_id` 	          bigint 	      NOT NULL,
+    `deduction_name` 	        varchar(30) 	NOT NULL,
+    `deduction_description`   varchar(30) 	NOT NULL,
+    `deduction_date`	        date        	NOT NULL,
+    `date_created` 		        timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified` 		      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`deduction_id`),
+
+    KEY `index_deductions_employee_id`(`employee_id`),
+    KEY `index_deductions_deduction_name`(`deduction_name`),
+    KEY `index_deductions_deduction_date`(`deduction_date`),
+    KEY `index_deductions_date_created`(`date_created`),
+    KEY `index_deductions_date_modified`(`date_modified`),
+    
+    KEY `fk_employees_deductions_employee_id` (`employee_id`),
+    CONSTRAINT `fk_employees_deductions_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    KEY `fk_deduction_names_deductions_deduction_name` (`deduction_name`),
+    CONSTRAINT `fk_deduction_names_deductions_deduction_name` FOREIGN KEY (`deduction_name`) REFERENCES `deduction_names` (`deduction_name`) ON DELETE RESTRICT ON UPDATE CASCADE
+    ) ;
