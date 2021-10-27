@@ -382,6 +382,7 @@
     CONSTRAINT `fk_projects_tasks_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`) ON DELETE RESTRICT ON UPDATE CASCADE
     ) ;
 
+
     DROP TABLE IF EXISTS `earning_names`;
     CREATE TABLE `earning_names` (
     `earning_name`   varchar(30)   NOT NULL,
@@ -392,4 +393,17 @@
 
     KEY `index_earning_names_date_created`(`date_created`),
     KEY `index_earning_names_date_modified`(`date_modified`)
+    );
+
+
+    DROP TABLE IF EXISTS `deduction_names`;
+    CREATE TABLE `deduction_names` (
+    `deduction_name`   varchar(30)   NOT NULL,
+    `date_created`  	      timestamp 	  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified` 	      timestamp     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`deduction_name`),
+
+    KEY `index_deduction_names_date_created`(`date_created`),
+    KEY `index_deduction_names_date_modified`(`date_modified`)
     );
