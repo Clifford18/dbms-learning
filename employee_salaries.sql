@@ -396,6 +396,32 @@
     );
 
 
+    DROP TABLE IF EXISTS `earnings`;
+    CREATE TABLE `earnings` (
+    `earning_id` 			      varchar(30) 	NOT NULL,
+    `employee_id` 	        bigint 	      NOT NULL,
+    `earning_name` 	        varchar(30) 	NOT NULL,
+    `earning_description`   varchar(30) 	NOT NULL,
+    `earning_date`	        date        	NOT NULL,
+    `date_created` 		      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified` 		    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`earning_id`),
+
+    KEY `index_earnings_employee_id`(`employee_id`),
+    KEY `index_earnings_earning_name`(`earning_name`),
+    KEY `index_earnings_earning_date`(`earning_date`),
+    KEY `index_earnings_date_created`(`date_created`),
+    KEY `index_earnings_date_modified`(`date_modified`),
+    
+    KEY `fk_employees_earnings_employee_id` (`employee_id`),
+    CONSTRAINT `fk_employees_earnings_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    KEY `fk_earning_names_earnings_earning_name` (`earning_name`),
+    CONSTRAINT `fk_earning_names_earnings_earning_name` FOREIGN KEY (`earning_name`) REFERENCES `earning_names` (`earning_name`) ON DELETE RESTRICT ON UPDATE CASCADE
+    ) ;
+
+
     DROP TABLE IF EXISTS `deduction_names`;
     CREATE TABLE `deduction_names` (
     `deduction_name`   varchar(30)   NOT NULL,
