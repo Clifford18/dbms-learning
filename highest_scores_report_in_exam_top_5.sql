@@ -1,26 +1,34 @@
 USE  online_exam;
 
+SET @TotalMarks = (SELECT 
+SUM(q.marks) 
+FROM questions AS q
+LEFT JOIN exams AS e ON q.exam_id = e.exam_id
+WHERE e.exam_id = 1
+);
+
 SELECT 
-pupils.first_name,
-pupils.last_name,
-answers.pupil_id,
-count(choices.remark) AS correctly_asnswered,
-(count(choices.remark)*questions.marks) AS total_marks,
-(((count(choices.remark)*questions.marks)/exams.total_marks)*100) AS percentage_score,
+full_name(p.first_name,p.last_name) AS fullnames,
+a.pupil_id,
+count(q.question_id) AS correctly_answered,
+SUM(q.marks) AS question_marks,
+ROUND(((SUM(q.marks)/@TotalMarks)*100),1) AS Percentage_Score ,
 
-exams.exam_title
+e.exam_title
 
+FROM answers a
+RIGHT JOIN choices c ON a.choice_id = c.choice_id
+RIGHT JOIN questions q ON a.question_id = q.question_id
+RIGHT JOIN pupils p ON a.pupil_id = p.pupil_id
+LEFT JOIN exams e ON q.exam_id = e.exam_id
 
-FROM answers
-RIGHT JOIN choices ON answers.choice_id = choices.choice_id
-RIGHT JOIN questions ON answers.question_id = questions.question_id
-RIGHT JOIN pupils ON answers.pupil_id = pupils.pupil_id
-LEFT JOIN exams ON questions.exam_id = exams.exam_id
+WHERE e.exam_id = 1 and remark='Correct'
 
+GROUP BY p.pupil_id
 
-WHERE remark= 'Correct'
+HAVING Percentage_Score=Percentage_Score
 
-GROUP BY pupil_id
+ORDER BY Percentage_Score DESC
 
-ORDER BY percentage DESC
-LIMIT 5;
+LIMIT 5
+;
