@@ -26,8 +26,6 @@ WHERE e.exam_id = 1 and remark='Correct'
 
 GROUP BY p.pupil_id
 
-HAVING Percentage_Score=Percentage_Score
-
 ORDER BY Percentage_Score DESC
 
 LIMIT 5
