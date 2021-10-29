@@ -1,7 +1,7 @@
 USE  online_exam;
 SELECT  
 
-	term_name AS ExamName,
+	term_name ,
     exam_title AS ExamTitle
 FROM exams
 
