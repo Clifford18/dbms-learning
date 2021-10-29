@@ -18,6 +18,31 @@
 		KEY `index_streams_date_modified`(`date_modified`)
 		);
 
+
+		DROP TABLE IF EXISTS `class_names`;
+		CREATE TABLE `class_names` (
+		`class_name`  	      varchar(30) 	NOT NULL,
+		`date_created` 	      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		`date_modified` 	    timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+		PRIMARY KEY (`class_name`),
+
+		KEY `index_streams_date_created`(`date_created`),
+		KEY `index_streams_date_modified`(`date_modified`)
+		);
+
+		INSERT INTO class_names (class_name)
+		VALUES
+		('Class 8'),
+		('Class 7'),
+		('Class 6'),
+		('Class 5'),
+		('Class 4'),
+		('Class 3'),
+		('Class 2'),
+		('Class 1');
+
+
 		INSERT INTO streams (stream_name)
 		VALUES
 		('East'),
