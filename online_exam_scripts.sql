@@ -18,8 +18,19 @@
 		KEY `index_streams_date_modified`(`date_modified`)
 		);
 
+		INSERT INTO streams (stream_name)
+		VALUES
+		('East'),
+		('West'),
+		('North'),
+		('South'),
+		('Red'),
+		('Yellow'),
+		('Blue'),
+		('Green');
 
-		DROP TABLE IF EXISTS `class_names`;
+
+    DROP TABLE IF EXISTS `class_names`;
 		CREATE TABLE `class_names` (
 		`class_name`  	      varchar(30) 	NOT NULL,
 		`date_created` 	      timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,8 +38,8 @@
 
 		PRIMARY KEY (`class_name`),
 
-		KEY `index_streams_date_created`(`date_created`),
-		KEY `index_streams_date_modified`(`date_modified`)
+		KEY `index_class_names_date_created`(`date_created`),
+		KEY `index_class_names_date_modified`(`date_modified`)
 		);
 
 		INSERT INTO class_names (class_name)
@@ -41,18 +52,6 @@
 		('Class 3'),
 		('Class 2'),
 		('Class 1');
-
-
-		INSERT INTO streams (stream_name)
-		VALUES
-		('East'),
-		('West'),
-		('North'),
-		('South'),
-		('Red'),
-		('Yellow'),
-		('Blue'),
-		('Green');
 
 
 		DROP TABLE IF EXISTS `classes`;
@@ -72,6 +71,8 @@
 		KEY `index_classes_date_modified`(`date_modified`),
 
 		UNIQUE KEY `uindex_classes_class_name_stream_name` (`class_name`,`stream_name`),
+
+		CONSTRAINT `fk_class_names_classes_class_name` FOREIGN KEY (`class_name`) REFERENCES `class_names` (`class_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
 		CONSTRAINT `fk_streams_classes_stream_name` FOREIGN KEY (`stream_name`) REFERENCES `streams` (`stream_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 		);
