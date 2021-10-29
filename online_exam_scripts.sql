@@ -171,9 +171,9 @@
 		('Firstname11', 'Lastname11', 'Class Teacher 1','Female','12345K','254722123456','f11l11@gmail.com');
 
 
-		DROP TABLE IF EXISTS `teacher_class`;
-		CREATE TABLE `teacher_class` (
-		`teacher_class_id`		bigint 				NOT NULL AUTO_INCREMENT,
+		DROP TABLE IF EXISTS `teacher_class_subject`;
+		CREATE TABLE `teacher_class_subject` (
+		`teacher_class_subject_id`		bigint 				NOT NULL AUTO_INCREMENT,
 		`class_id` 						bigint  			NOT NULL,
 		`teacher_id` 					bigint  			NOT NULL,
 		`subject_name` 				varchar(30) 	NOT NULL,
@@ -181,22 +181,24 @@
 		`date_created` 				timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 		`date_modified` 			timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-		PRIMARY KEY (`teacher_class_id`),
+		PRIMARY KEY (`teacher_class_subject_id`),
 
-		KEY `index_teacher_class_class_id`(`class_id`),
-		KEY `index_teacher_class_teacher_id`(`teacher_id`),
-		KEY `index_teacher_class_subject_name`(`subject_name`),
-		KEY `index_teacher_class_date_created`(`date_created`),
-		KEY `index_teacher_class_date_modified`(`date_modified`),
+		KEY `index_teacher_class_subject_class_id`(`class_id`),
+		KEY `index_teacher_class_subject_teacher_id`(`teacher_id`),
+		KEY `index_teacher_class_subject_subject_name`(`subject_name`),
+		KEY `index_teacher_class_subject_date_created`(`date_created`),
+		KEY `index_teacher_class_subject_date_modified`(`date_modified`),
 
-		CONSTRAINT `fk_classes_teacher_class_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+		UNIQUE KEY `uindex_teacher_class_subject_class_id_teacher_id_subject_name` (`class_id`,`teacher_id`,`subject_name`),
 
-		CONSTRAINT `fk_teachers_teacher_class_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+		CONSTRAINT `fk_classes_teacher_class_subject_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		CONSTRAINT `fk_subjects_teacher_class_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE
+		CONSTRAINT `fk_teachers_teacher_class_subject_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+		CONSTRAINT `fk_subjects_teacher_class_subject_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
-		INSERT INTO teacher_class (class_id, teacher_id, subject_name,description)    
+		INSERT INTO teacher_class_subject (class_id, teacher_id, subject_name,description)    
 		VALUES
 		(1, 1, 'Maths','description1'),
 		(4, 1, 'Science','description2'),
