@@ -48,7 +48,6 @@
 
 		UNIQUE KEY `uindex_classes_class_name_stream_name` (`class_name`,`stream_name`),
 
-		KEY `fk_streams_classes_stream_name` (`stream_name`),
 		CONSTRAINT `fk_streams_classes_stream_name` FOREIGN KEY (`stream_name`) REFERENCES `streams` (`stream_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 		);
 
@@ -134,7 +133,6 @@
 
 		UNIQUE KEY `uindex_teachers_id_number` (`id_number`),
 
-		KEY `fk_genders_teachers_gender` (`gender`),
 		CONSTRAINT `fk_genders_teachers_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
 		);
 
@@ -171,13 +169,10 @@
 		KEY `index_teacher_class_date_created`(`date_created`),
 		KEY `index_teacher_class_date_modified`(`date_modified`),
 
-		KEY `fk_classes_teacher_class_class_id` (`class_id`),
 		CONSTRAINT `fk_classes_teacher_class_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_teachers_teacher_class_teacher_id` (`teacher_id`),
 		CONSTRAINT `fk_teachers_teacher_class_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_subjects_teacher_class_subject_name` (`subject_name`),
 		CONSTRAINT `fk_subjects_teacher_class_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
@@ -213,7 +208,6 @@
 
 		UNIQUE KEY `uindex_parents_id_number` (`id_number`),
 
-		KEY `fk_genders_parents_gender` (`gender`),
 		CONSTRAINT `fk_genders_parents_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
 		);
 
@@ -253,10 +247,8 @@
 		KEY `index_pupils_date_created`(`date_created`),
 		KEY `index_pupils_date_modified`(`date_modified`),
 
-		KEY `fk_genders_pupils_gender` (`gender`),
 		CONSTRAINT `fk_genders_pupils_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_classes_pupils_class_id` (`class_id`),
 		CONSTRAINT `fk_classes_pupils_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 		);
 
@@ -304,10 +296,8 @@
 
 		UNIQUE KEY `uindex_pupil_parent_pupil_id_parent_id` (`pupil_id`,`parent_id`),
 
-		KEY `fk_pupils_pupil_parent_pupil_id` (`pupil_id`),
 		CONSTRAINT `fk_pupils_pupil_parent_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_parents_pupil_parent_parent_id` (`parent_id`),
 		CONSTRAINT `fk_parents_pupil_parent_parent_id` FOREIGN KEY (`parent_id`) REFERENCES `parents` (`parent_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
@@ -365,16 +355,12 @@
 		KEY `index_exams_date_created`(`date_created`),
 		KEY `index_exams_date_modified`(`date_modified`),
 
-		KEY `fk_teachers_exams_teacher_id` (`teacher_id`),
 		CONSTRAINT `fk_teachers_exams_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_subjects_exams_subject_name` (`subject_name`),
 		CONSTRAINT `fk_subjects_exams_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_classes_exams_class_id` (`class_id`),
 		CONSTRAINT `fk_classes_exams_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_terms_exams_term_name` (`term_name`),
 		CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `terms` (`term_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
@@ -403,7 +389,6 @@
 		KEY `index_questions_date_created`(`date_created`),
 		KEY `index_questions_date_modified`(`date_modified`),
 
-		KEY `fk_exams_questions_exam_id` (`exam_id`),
 		CONSTRAINT `fk_exams_questions_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
@@ -445,7 +430,6 @@
 
 		UNIQUE KEY `uindex_choices_question_id_choice_label`(`question_id`,`choice_label`),
 
-		KEY `fk_questions_choices_question_id` (`question_id`),
 		CONSTRAINT `fk_questions_choices_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
@@ -486,13 +470,10 @@
 
 		UNIQUE KEY `uindex_answers_pupil_id_question_id`(`pupil_id`,`question_id`),
 
-		KEY `fk_pupils_answers_pupil_id` (`pupil_id`),
 		CONSTRAINT `fk_pupils_answers_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_questions_answers_question_id` (`question_id`),
 		CONSTRAINT `fk_questions_answers_question_id` FOREIGN KEY (`question_id`) REFERENCES `questions` (`question_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		KEY `fk_choices_answers_choice_id` (`choice_id`),
 		CONSTRAINT `fk_choices_answers_choice_id` FOREIGN KEY (`choice_id`) REFERENCES `choices` (`choice_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;	
 
