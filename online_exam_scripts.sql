@@ -84,12 +84,6 @@
 		('Class 6','West'),('Class 6','East'),
 		('Class 5','West'),('Class 5','East');
 
-		INSERT INTO classes (class_name)
-		VALUES
-		('Class 4'),
-		('Class 3'),
-		('Class 2'),
-		('Class 1');
 
 
 		DROP TABLE IF EXISTS `subjects`;
@@ -363,7 +357,7 @@
 		`exam_id` 						bigint 			NOT NULL AUTO_INCREMENT,
 		`teacher_id` 				bigint  			NOT NULL,
 		`subject_name` 			varchar(30) 	NOT NULL,
-		`class_id` 					bigint  			NOT NULL,
+		`class_name` 				varchar(30) 	NOT NULL,
 		`term_name` 				varchar(30)  	NOT NULL,
 		`exam_title`				varchar(50) 	NOT NULL,
 		`exam_date`					date 					NOT NULL,
@@ -376,7 +370,7 @@
 
 		KEY `index_exams_teacher_id`(`teacher_id`),
 		KEY `index_exams_subject_name`(`subject_name`),
-		KEY `index_exams_class_id`(`class_id`),
+		KEY `index_exams_class_name`(`class_name`),
 		KEY `index_exams_exam_date`(`exam_date`),
 		KEY `index_exams_date_created`(`date_created`),
 		KEY `index_exams_date_modified`(`date_modified`),
@@ -385,18 +379,18 @@
 
 		CONSTRAINT `fk_subjects_exams_subject_name` FOREIGN KEY (`subject_name`) REFERENCES `subjects` (`subject_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-		CONSTRAINT `fk_classes_exams_class_id` FOREIGN KEY (`class_id`) REFERENCES `classes` (`class_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+		CONSTRAINT `fk_class_names_exams_class_name` FOREIGN KEY (`class_name`) REFERENCES `class_names` (`class_name`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
 		CONSTRAINT `fk_terms_exams_term_name` FOREIGN KEY (`term_name`) REFERENCES `terms` (`term_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 		) ;
 
-		INSERT INTO exams (teacher_id, subject_name, class_id, term_name, exam_title, exam_date, exam_duration, total_questions)
+		INSERT INTO exams (teacher_id, subject_name, class_name, term_name, exam_title, exam_date, exam_duration, total_questions)
 		VALUES 
-			(1,'Maths',1,'Term12021','exam_title1','2021-10-05',' 03:00:00',25),
-			(2,'Maths',2,'Term12021','exam_title2','2021-10-05',' 03:00:00',25),
-			(3,'Maths',3,'Term12021','exam_title3','2021-10-05',' 03:00:00',25),
-			(5,'Maths',4,'Term12021','exam_title4','2021-10-05',' 03:00:00',25),
-			(6,'Maths',5,'Term12021','exam_title','2021-10-05',' 03:00:00',25);
+			(1,'Maths','Class 8','Term12021','exam_title1','2021-10-05',' 03:00:00',25),
+			(2,'Maths','Class 8','Term12021','exam_title2','2021-10-05',' 03:00:00',25),
+			(3,'Maths','Class 8','Term12021','exam_title3','2021-10-05',' 03:00:00',25),
+			(4,'Maths','Class 8','Term12021','exam_title4','2021-10-05',' 03:00:00',25),
+			(5,'Maths','Class 8','Term12021','exam_title5','2021-10-05',' 03:00:00',25);
 
 
 		DROP TABLE IF EXISTS `questions`;
