@@ -129,6 +129,25 @@
 		('Female');
 
 
+DROP TABLE IF EXISTS `identification_types`;
+		CREATE TABLE `identification_types` (
+		`identification_type`	       varchar(30) 	NOT NULL,
+		`date_created`   timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		`date_modified`  timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		
+		PRIMARY KEY (`identification_type`),
+		
+		KEY `index_identification_types_date_created`(`date_created`),
+		KEY `index_identification_types_date_modified`(`date_modified`)
+		);
+
+		INSERT INTO identification_types (identification_type)
+		VALUES
+		('id_number'),
+		('alien_id_number'),
+		('passport_number');
+
+
 		DROP TABLE IF EXISTS `teachers`;
 		CREATE TABLE `teachers` (
 		`teacher_id`		bigint	 			NOT NULL AUTO_INCREMENT,
