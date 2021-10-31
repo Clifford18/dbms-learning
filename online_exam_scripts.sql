@@ -150,16 +150,17 @@ DROP TABLE IF EXISTS `identification_types`;
 
 		DROP TABLE IF EXISTS `teachers`;
 		CREATE TABLE `teachers` (
-		`teacher_id`		bigint	 			NOT NULL AUTO_INCREMENT,
-		`first_name` 		varchar(30) 	NOT NULL,
-		`last_name` 		varchar(30) 	NOT NULL,
-		`designation`  	varchar(30) 	DEFAULT NULL,
-		`gender`  			varchar(30) 	NOT NULL,
-		`id_number` 		varchar(30) 	NOT NULL,
-		`phone_number` 	varchar(30) 	NOT NULL,
-		`email_address`	varchar(30) 	NOT NULL,
-		`date_created` 	timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
-		`date_modified` timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		`teacher_id`							bigint	 			NOT NULL AUTO_INCREMENT,
+		`first_name` 							varchar(30) 	NOT NULL,
+		`last_name` 							varchar(30) 	NOT NULL,
+		`designation`  						varchar(30) 	DEFAULT NULL,
+		`gender`  								varchar(30) 	NOT NULL,
+		`identification_types`		varchar(30) 	NOT NULL,
+		`identification_value`		varchar(30) 	NOT NULL,
+		`phone_number` 						varchar(30) 	NOT NULL,
+		`email_address`						varchar(30) 	NOT NULL,
+		`date_created` 						timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		`date_modified` 					timestamp 		NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
 		PRIMARY KEY (`teacher_id`),
 
@@ -170,24 +171,26 @@ DROP TABLE IF EXISTS `identification_types`;
 		KEY `index_teachers_date_created`(`date_created`),
 		KEY `index_teachers_date_modified`(`date_modified`),
 
-		UNIQUE KEY `uindex_teachers_id_number` (`id_number`),
+		UNIQUE KEY `uindex_teachers_identification_value` (`identification_value`),
 
 		CONSTRAINT `fk_genders_teachers_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
+		
+		CONSTRAINT `fk_identification_types_teachers_identification_type` FOREIGN KEY (`identification_type`) REFERENCES `identification_types` (`identification_type`) ON DELETE RESTRICT ON UPDATE CASCADE
 		);
 
-		INSERT INTO teachers (first_name, last_name, designation, gender, id_number, phone_number,email_address)
+		INSERT INTO teachers (first_name, last_name, designation, gender, identification_types, identification_value, phone_number,email_address)
 		VALUES
-		('Firstname1', 'Lastname1', 'HeadMaster','Male','12345A','254712123456','f1l1@gmail.com'),
-		('Firstname2', 'Lastname2', 'Deputy-HeadMaster','Female','12345B','254713123456','f2l2@gmail.com'),
-		('Firstname3', 'Lastname3', 'Games Master','Male','12345C','254714123456','f3l3@gmail.com'),
-		('Firstname4', 'Lastname4', 'Class Teacher 8','Male','12345D','254715123456','f4l4@gmail.com'),
-		('Firstname5', 'Lastname5', 'Class Teacher 7','Female','12345E','254716123456','f5l5@gmail.com'),
-		('Firstname6', 'Lastname6', 'Class Teacher 6','FeMale','12345F','254717123456','f6l6@gmail.com'),
-		('Firstname7', 'Lastname7', 'Class Teacher 5','Male','12345G','254718123456','f7l7@gmail.com'),
-		('Firstname8', 'Lastname8', 'Class Teacher 4','Female','12345H','254719123456','f8l8@gmail.com'),
-		('Firstname9', 'Lastname9', 'Class Teacher 3','Male','12345I','254720123456','f9l9@gmail.com'),
-		('Firstname10', 'Lastname10', 'Class Teacher 2','Male','12345J','254721123456','f10l10@gmail.com'),
-		('Firstname11', 'Lastname11', 'Class Teacher 1','Female','12345K','254722123456','f11l11@gmail.com');
+		('Firstname1', 'Lastname1', 'HeadMaster','Male','id_number','12345A','254712123456','f1l1@gmail.com'),
+		('Firstname2', 'Lastname2', 'Deputy-HeadMaster','Female','id_number','12345B','254713123456','f2l2@gmail.com'),
+		('Firstname3', 'Lastname3', 'Games Master','Male','id_number','12345C','254714123456','f3l3@gmail.com'),
+		('Firstname4', 'Lastname4', 'Class Teacher 8','Male','id_number','12345D','254715123456','f4l4@gmail.com'),
+		('Firstname5', 'Lastname5', 'Class Teacher 7','Female','id_number','12345E','254716123456','f5l5@gmail.com'),
+		('Firstname6', 'Lastname6', 'Class Teacher 6','FeMale','id_number','12345F','254717123456','f6l6@gmail.com'),
+		('Firstname7', 'Lastname7', 'Class Teacher 5','Male','id_number','12345G','254718123456','f7l7@gmail.com'),
+		('Firstname8', 'Lastname8', 'Class Teacher 4','Female','id_number','12345H','254719123456','f8l8@gmail.com'),
+		('Firstname9', 'Lastname9', 'Class Teacher 3','Male','id_number','12345I','254720123456','f9l9@gmail.com'),
+		('Firstname10', 'Lastname10', 'Class Teacher 2','Male','id_number','12345J','254721123456','f10l10@gmail.com'),
+		('Firstname11', 'Lastname11', 'Class Teacher 1','Female','id_number','12345K','254722123456','f11l11@gmail.com');
 
 
 		DROP TABLE IF EXISTS `teacher_class_subject`;
