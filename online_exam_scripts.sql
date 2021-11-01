@@ -290,7 +290,7 @@ CREATE TABLE `pupils`
     `last_name`     varchar(30)                NOT NULL,
     `gender`        varchar(30)                NOT NULL,
     `date_of_birth` date                       NOT NULL,
-    `status`        ENUM ('Active','Inactive') NOT NULL,
+    `status`        ENUM ('ACTIVE','INACTIVE') NOT NULL,
     `date_created`  timestamp                  NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `date_modified` timestamp                  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -309,28 +309,28 @@ CREATE TABLE `pupils`
 );
 
 INSERT INTO pupils (class_id, first_name, last_name, gender, date_of_birth, status)
-VALUES (1, 'Firstname101', 'Lastname101', 'Male', '2021-10-05', 'Active'),
-       (1, 'Firstname102', 'Lastname102', 'Female', '2021-10-05', 'Active'),
-       (1, 'Firstname103', 'Lastname103', 'Male', '2021-10-05', 'Active'),
-       (1, 'Firstname104', 'Lastname104', 'Male', '2021-10-05', 'Active'),
-       (1, 'Firstname105', 'Lastname105', 'Female', '2021-10-05', 'Active'),
-       (1, 'Firstname106', 'Lastname106', 'FeMale', '2021-10-05', 'Active'),
-       (1, 'Firstname107', 'Lastname107', 'Male', '2021-10-05', 'Active'),
-       (1, 'Firstname108', 'Lastname108', 'Female', '2021-10-05', 'Active'),
-       (1, 'Firstname109', 'Lastname109', 'Male', '2021-10-05', 'Active'),
-       (1, 'Firstname1010', 'Lastnamed1010', 'Male', '2021-10-05', 'Active'),
-       (1, 'Firstname1011', 'Lastname1011', 'Female', '2021-10-05', 'Active'),
-       (2, 'Firstname201', 'Lastname201', 'Male', '2021-10-05', 'Active'),
-       (2, 'Firstname202', 'Lastname202', 'Female', '2021-10-05', 'Active'),
-       (2, 'Firstname203', 'Lastname203', 'Male', '2021-10-05', 'Active'),
-       (2, 'Firstname204', 'Lastname204', 'Male', '2021-10-05', 'Active'),
-       (2, 'Firstname205', 'Lastname205', 'Female', '2021-10-05', 'Active'),
-       (2, 'Firstname206', 'Lastname206', 'FeMale', '2021-10-05', 'Active'),
-       (2, 'Firstname207', 'Lastname207', 'Male', '2021-10-05', 'Active'),
-       (2, 'Firstname208', 'Lastname208', 'Female', '2021-10-05', 'Active'),
-       (2, 'Firstname209', 'Lastname209', 'Male', '2021-10-05', 'Active'),
-       (2, 'Firstname2010', 'Lastname2010', 'Male', '2021-10-05', 'Active'),
-       (2, 'Firstname2011', 'Lastname2011', 'Female', '2021-10-05', 'Active');
+VALUES (1, 'Firstname101', 'Lastname101', 'Male', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname102', 'Lastname102', 'Female', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname103', 'Lastname103', 'Male', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname104', 'Lastname104', 'Male', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname105', 'Lastname105', 'Female', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname106', 'Lastname106', 'FeMale', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname107', 'Lastname107', 'Male', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname108', 'Lastname108', 'Female', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname109', 'Lastname109', 'Male', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname1010', 'Lastnamed1010', 'Male', '2021-10-05', 'ACTIVE'),
+       (1, 'Firstname1011', 'Lastname1011', 'Female', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname201', 'Lastname201', 'Male', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname202', 'Lastname202', 'Female', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname203', 'Lastname203', 'Male', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname204', 'Lastname204', 'Male', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname205', 'Lastname205', 'Female', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname206', 'Lastname206', 'FeMale', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname207', 'Lastname207', 'Male', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname208', 'Lastname208', 'Female', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname209', 'Lastname209', 'Male', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname2010', 'Lastname2010', 'Male', '2021-10-05', 'ACTIVE'),
+       (2, 'Firstname2011', 'Lastname2011', 'Female', '2021-10-05', 'ACTIVE');
 
 
 DROP TABLE IF EXISTS `pupil_parent`;
@@ -489,7 +489,7 @@ CREATE TABLE `choices`
     `question_id`        bigint                   NOT NULL,
     `choice_label`       varchar(50)              NOT NULL,
     `choice_description` varchar(50)              NOT NULL,
-    `remark`             ENUM ('Wrong','Correct') NOT NULL,
+    `remark`             ENUM ('WRONG','CORRECT') NOT NULL,
     `date_created`       timestamp                NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `date_modified`      timestamp                NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
@@ -517,10 +517,10 @@ BEGIN
     WHILE i < 26
         DO
             INSERT INTO `choices` (`question_id`, `choice_label`, `choice_description`, `remark`)
-            VALUES (i, 'A', concat('choice_description - ', i), 'Wrong'),
-                   (i, 'B', concat('choice_description - ', i), 'Wrong'),
-                   (i, 'C', concat('choice_description - ', i), 'Correct'),
-                   (i, 'D', concat('choice_description - ', i), 'Wrong');
+            VALUES (i, 'A', concat('choice_description - ', i), 'WRONG'),
+                   (i, 'B', concat('choice_description - ', i), 'WRONG'),
+                   (i, 'C', concat('choice_description - ', i), 'CORRECT'),
+                   (i, 'D', concat('choice_description - ', i), 'WRONG');
             SET i = i + 1;
         END WHILE;
 
@@ -528,10 +528,10 @@ BEGIN
     WHILE i < 51
         DO
             INSERT INTO `choices` (`question_id`, `choice_label`, `choice_description`, `remark`)
-            VALUES (i, 'A', concat('choice_description - ', i), 'Wrong'),
-                   (i, 'B', concat('choice_description - ', i), 'Correct'),
-                   (i, 'C', concat('choice_description - ', i), 'Wrong'),
-                   (i, 'D', concat('choice_description - ', i), 'Wrong');
+            VALUES (i, 'A', concat('choice_description - ', i), 'WRONG'),
+                   (i, 'B', concat('choice_description - ', i), 'CORRECT'),
+                   (i, 'C', concat('choice_description - ', i), 'WRONG'),
+                   (i, 'D', concat('choice_description - ', i), 'WRONG');
             SET i = i + 1;
         END WHILE;
 
@@ -539,10 +539,10 @@ BEGIN
     WHILE i < 76
         DO
             INSERT INTO `choices` (`question_id`, `choice_label`, `choice_description`, `remark`)
-            VALUES (i, 'A', concat('choice_description - ', i), 'Wrong'),
-                   (i, 'B', concat('choice_description - ', i), 'Wrong'),
-                   (i, 'C', concat('choice_description - ', i), 'Correct'),
-                   (i, 'D', concat('choice_description - ', i), 'Wrong');
+            VALUES (i, 'A', concat('choice_description - ', i), 'WRONG'),
+                   (i, 'B', concat('choice_description - ', i), 'WRONG'),
+                   (i, 'C', concat('choice_description - ', i), 'CORRECT'),
+                   (i, 'D', concat('choice_description - ', i), 'WRONG');
             SET i = i + 1;
         END WHILE;
 END$$
@@ -741,7 +741,7 @@ BEGIN
                                               LEFT JOIN exams e ON q.exam_id = e.exam_id
 
                                      WHERE e.exam_id = 1
-                                       and remark = 'Correct'
+                                       and remark = 'CORRECT'
                                        AND p.pupil_id = i
             );
 
@@ -768,7 +768,7 @@ BEGIN
                                               LEFT JOIN exams e ON q.exam_id = e.exam_id
 
                                      WHERE e.exam_id = 2
-                                       and remark = 'Correct'
+                                       and remark = 'CORRECT'
                                        AND p.pupil_id = i
             );
 
@@ -795,7 +795,7 @@ BEGIN
                                               LEFT JOIN exams e ON q.exam_id = e.exam_id
 
                                      WHERE e.exam_id = 3
-                                       and remark = 'Correct'
+                                       and remark = 'CORRECT'
                                        AND p.pupil_id = i
             );
 
@@ -803,6 +803,7 @@ BEGIN
             VALUES (i, 3, @percentage_score);
             SET i = i + 1;
         END WHILE;
+    
 END$$
 DELIMITER ;
 CALL generate_percentage_score();
