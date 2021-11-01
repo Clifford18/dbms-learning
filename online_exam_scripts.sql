@@ -448,20 +448,38 @@ CREATE TABLE `questions`
 );
 
 
-DROP PROCEDURE IF EXISTS generate_questions_exam1;
+DROP PROCEDURE IF EXISTS generate_questions;
 DELIMITER $$
-CREATE PROCEDURE generate_questions_exam1()
+CREATE PROCEDURE generate_questions()
 BEGIN
     DECLARE i INT DEFAULT 1;
+
+    -- exam_id = 1 25 question
     WHILE i < 26
         DO
             INSERT INTO `questions` (`exam_id`, `question_description`, `marks`)
             VALUES (1, concat('question_description - ', i), 2);
             SET i = i + 1;
         END WHILE;
+
+    -- exam_id = 2 25 question
+    WHILE i < 51
+        DO
+            INSERT INTO `questions` (`exam_id`, `question_description`, `marks`)
+            VALUES (2, concat('question_description - ', i), 2);
+            SET i = i + 1;
+        END WHILE;
+
+    -- exam_id = 3 25 question
+    WHILE i < 76
+        DO
+            INSERT INTO `questions` (`exam_id`, `question_description`, `marks`)
+            VALUES (3, concat('question_description - ', i), 2);
+            SET i = i + 1;
+        END WHILE;
 END$$
 DELIMITER ;
-CALL generate_questions_exam1();
+CALL generate_questions();
 
 
 DROP TABLE IF EXISTS `choices`;
