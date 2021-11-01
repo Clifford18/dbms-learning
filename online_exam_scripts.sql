@@ -507,12 +507,36 @@ CREATE TABLE `choices`
 );
 
 
-DROP PROCEDURE IF EXISTS generate_choices_exam1;
+DROP PROCEDURE IF EXISTS generate_choices;
 DELIMITER $$
-CREATE PROCEDURE generate_choices_exam1()
+CREATE PROCEDURE generate_choices()
 BEGIN
     DECLARE i INT DEFAULT 1;
+
+    -- exam 1 choices***
     WHILE i < 26
+        DO
+            INSERT INTO `choices` (`question_id`, `choice_label`, `choice_description`, `remark`)
+            VALUES (i, 'A', concat('choice_description - ', i), 'Wrong'),
+                   (i, 'B', concat('choice_description - ', i), 'Wrong'),
+                   (i, 'C', concat('choice_description - ', i), 'Correct'),
+                   (i, 'D', concat('choice_description - ', i), 'Wrong');
+            SET i = i + 1;
+        END WHILE;
+
+    -- exam 2 choices***
+    WHILE i < 51
+        DO
+            INSERT INTO `choices` (`question_id`, `choice_label`, `choice_description`, `remark`)
+            VALUES (i, 'A', concat('choice_description - ', i), 'Wrong'),
+                   (i, 'B', concat('choice_description - ', i), 'Correct'),
+                   (i, 'C', concat('choice_description - ', i), 'Wrong'),
+                   (i, 'D', concat('choice_description - ', i), 'Wrong');
+            SET i = i + 1;
+        END WHILE;
+
+    -- exam 3 choices***
+    WHILE i < 76
         DO
             INSERT INTO `choices` (`question_id`, `choice_label`, `choice_description`, `remark`)
             VALUES (i, 'A', concat('choice_description - ', i), 'Wrong'),
@@ -523,7 +547,7 @@ BEGIN
         END WHILE;
 END$$
 DELIMITER ;
-CALL generate_choices_exam1();
+CALL generate_choices();
 
 
 DROP TABLE IF EXISTS `answers`;
