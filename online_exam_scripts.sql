@@ -577,11 +577,13 @@ CREATE TABLE `answers`
 );
 
 
-DROP PROCEDURE IF EXISTS generate_answers_exam1;
+DROP PROCEDURE IF EXISTS generate_answers;
 DELIMITER $$
-CREATE PROCEDURE generate_answers_exam1()
+CREATE PROCEDURE generate_answers()
 BEGIN
     DECLARE i INT DEFAULT 1;
+
+    -- exam 1 answers for all 22 students *
     WHILE i < 23
         DO
             INSERT INTO `answers` (`pupil_id`, `question_id`, `choice_id`)
@@ -612,10 +614,78 @@ BEGIN
                    (i, 25, CAST((RAND() * (100 - (96 + 1)) + (96 + 1)) AS SIGNED));
             SET i = i + 1;
         END WHILE;
+
+    -- exam 2 answers for all 22 students *
+    set i = 1;
+    WHILE i < 23
+        DO
+            INSERT INTO `answers` (`pupil_id`, `question_id`, `choice_id`)
+            VALUES (i, 26, CAST((RAND() * (104 - 101) + 101) AS SIGNED)),
+                   (i, 27, CAST((RAND() * (108 - (104 + 1)) + (104 + 1)) AS SIGNED)),
+                   (i, 28, CAST((RAND() * (112 - (108 + 1)) + (108 + 1)) AS SIGNED)),
+                   (i, 29, CAST((RAND() * (116 - (112 + 1)) + (112 + 1)) AS SIGNED)),
+                   (i, 30, CAST((RAND() * (120 - (116 + 1)) + (116 + 1)) AS SIGNED)),
+                   (i, 31, CAST((RAND() * (124 - (120 + 1)) + (120 + 1)) AS SIGNED)),
+                   (i, 32, CAST((RAND() * (128 - (124 + 1)) + (124 + 1)) AS SIGNED)),
+                   (i, 33, CAST((RAND() * (132 - (128 + 1)) + (128 + 1)) AS SIGNED)),
+                   (i, 34, CAST((RAND() * (136 - (132 + 1)) + (132 + 1)) AS SIGNED)),
+                   (i, 35, CAST((RAND() * (140 - (136 + 1)) + (136 + 1)) AS SIGNED)),
+                   (i, 36, CAST((RAND() * (144 - (140 + 1)) + (140 + 1)) AS SIGNED)),
+                   (i, 37, CAST((RAND() * (148 - (144 + 1)) + (144 + 1)) AS SIGNED)),
+                   (i, 38, CAST((RAND() * (152 - (148 + 1)) + (148 + 1)) AS SIGNED)),
+                   (i, 39, CAST((RAND() * (156 - (152 + 1)) + (152 + 1)) AS SIGNED)),
+                   (i, 40, CAST((RAND() * (160 - (156 + 1)) + (156 + 1)) AS SIGNED)),
+                   (i, 41, CAST((RAND() * (164 - (160 + 1)) + (160 + 1)) AS SIGNED)),
+                   (i, 42, CAST((RAND() * (168 - (164 + 1)) + (164 + 1)) AS SIGNED)),
+                   (i, 43, CAST((RAND() * (172 - (168 + 1)) + (168 + 1)) AS SIGNED)),
+                   (i, 44, CAST((RAND() * (176 - (172 + 1)) + (172 + 1)) AS SIGNED)),
+                   (i, 45, CAST((RAND() * (180 - (176 + 1)) + (176 + 1)) AS SIGNED)),
+                   (i, 46, CAST((RAND() * (184 - (180 + 1)) + (180 + 1)) AS SIGNED)),
+                   (i, 47, CAST((RAND() * (188 - (184 + 1)) + (184 + 1)) AS SIGNED)),
+                   (i, 48, CAST((RAND() * (192 - (188 + 1)) + (188 + 1)) AS SIGNED)),
+                   (i, 49, CAST((RAND() * (196 - (192 + 1)) + (192 + 1)) AS SIGNED)),
+                   (i, 50, CAST((RAND() * (200 - (196 + 1)) + (196 + 1)) AS SIGNED));
+            SET i = i + 1;
+        END WHILE;
+
+    -- exam 3 answers for all 22 students *
+    set i = 1;
+    WHILE i < 23
+        DO
+            INSERT INTO `answers` (`pupil_id`, `question_id`, `choice_id`)
+            VALUES (i, 51, CAST((RAND() * (204 - 201) + 201) AS SIGNED)),
+                   (i, 52, CAST((RAND() * (208 - (204 + 1)) + (204 + 1)) AS SIGNED)),
+                   (i, 53, CAST((RAND() * (212 - (208 + 1)) + (208 + 1)) AS SIGNED)),
+                   (i, 54, CAST((RAND() * (216 - (212 + 1)) + (212 + 1)) AS SIGNED)),
+                   (i, 55, CAST((RAND() * (220 - (216 + 1)) + (216 + 1)) AS SIGNED)),
+                   (i, 56, CAST((RAND() * (224 - (220 + 1)) + (220 + 1)) AS SIGNED)),
+                   (i, 57, CAST((RAND() * (228 - (224 + 1)) + (224 + 1)) AS SIGNED)),
+                   (i, 58, CAST((RAND() * (232 - (228 + 1)) + (228 + 1)) AS SIGNED)),
+                   (i, 59, CAST((RAND() * (236 - (232 + 1)) + (232 + 1)) AS SIGNED)),
+                   (i, 60, CAST((RAND() * (240 - (236 + 1)) + (236 + 1)) AS SIGNED)),
+                   (i, 61, CAST((RAND() * (244 - (240 + 1)) + (240 + 1)) AS SIGNED)),
+                   (i, 62, CAST((RAND() * (248 - (244 + 1)) + (244 + 1)) AS SIGNED)),
+                   (i, 63, CAST((RAND() * (252 - (248 + 1)) + (248 + 1)) AS SIGNED)),
+                   (i, 64, CAST((RAND() * (256 - (252 + 1)) + (252 + 1)) AS SIGNED)),
+                   (i, 65, CAST((RAND() * (260 - (256 + 1)) + (256 + 1)) AS SIGNED)),
+                   (i, 66, CAST((RAND() * (264 - (260 + 1)) + (260 + 1)) AS SIGNED)),
+                   (i, 67, CAST((RAND() * (268 - (264 + 1)) + (264 + 1)) AS SIGNED)),
+                   (i, 68, CAST((RAND() * (272 - (268 + 1)) + (268 + 1)) AS SIGNED)),
+                   (i, 69, CAST((RAND() * (276 - (272 + 1)) + (272 + 1)) AS SIGNED)),
+                   (i, 70, CAST((RAND() * (280 - (276 + 1)) + (276 + 1)) AS SIGNED)),
+                   (i, 71, CAST((RAND() * (284 - (280 + 1)) + (280 + 1)) AS SIGNED)),
+                   (i, 72, CAST((RAND() * (288 - (284 + 1)) + (284 + 1)) AS SIGNED)),
+                   (i, 73, CAST((RAND() * (292 - (288 + 1)) + (288 + 1)) AS SIGNED)),
+                   (i, 74, CAST((RAND() * (296 - (292 + 1)) + (292 + 1)) AS SIGNED)),
+                   (i, 75, CAST((RAND() * (300 - (296 + 1)) + (296 + 1)) AS SIGNED));
+            SET i = i + 1;
+        END WHILE;
+
+
 END$$
 DELIMITER ;
 
-CALL generate_answers_exam1();
+CALL generate_answers();
 
 
 DROP FUNCTION IF EXISTS full_name;
