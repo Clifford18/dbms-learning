@@ -719,4 +719,35 @@ CREATE TABLE `results`
 );
 
 
+DROP PROCEDURE IF EXISTS generate_percentage_score;
+DELIMITER $$
+CREATE PROCEDURE generate_percentage_score()
+BEGIN
 
+    DECLARE i INT DEFAULT 1;
+
+
+    WHILE i < 23
+
+
+        DO
+            set @percentage_score = (SELECT ROUND(((SUM(q.marks) / @TotalMarks) * 100), 1)
+
+                                     FROM answers a
+                                              RIGHT JOIN choices c ON a.choice_id = c.choice_id
+                                              RIGHT JOIN questions q ON a.question_id = q.question_id
+                                              RIGHT JOIN pupils p ON a.pupil_id = p.pupil_id
+                                              LEFT JOIN exams e ON q.exam_id = e.exam_id
+
+                                     WHERE e.exam_id = 1
+                                       and remark = 'Correct'
+                                       AND p.pupil_id = i
+            );
+
+            INSERT INTO `results` (`pupil_id`, `exam_id`, `percentage_score`)
+            VALUES (i, 1, @percentage_score);
+            SET i = i + 1;
+        END WHILE;
+END$$
+DELIMITER ;
+CALL generate_percentage_score();
