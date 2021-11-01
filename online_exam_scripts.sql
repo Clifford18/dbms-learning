@@ -681,7 +681,6 @@ BEGIN
             SET i = i + 1;
         END WHILE;
 
-
 END$$
 DELIMITER ;
 
@@ -692,6 +691,32 @@ DROP FUNCTION IF EXISTS full_name;
 CREATE FUNCTION full_name(first_nm varchar(30), last_nm varchar(30))
     RETURNS varchar(60) DETERMINISTIC
     RETURN CONCAT(first_nm, ' ', last_nm);
+
+
+DROP TABLE IF EXISTS `results`;
+CREATE TABLE `results`
+(
+    `result_id`        bigint    NOT NULL AUTO_INCREMENT,
+    `pupil_id`         bigint    NOT NULL,
+    `exam_id`          bigint    NOT NULL,
+    `percentage_score` bigint    NOT NULL,
+    `date_created`     timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified`    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`result_id`),
+
+    KEY `index_results_pupil_id` (`pupil_id`),
+    KEY `index_results_exam_id` (`exam_id`),
+    KEY `index_results_exam_id` (`percentage_score`),
+    KEY `index_results_date_created` (`date_created`),
+    KEY `index_results_date_modified` (`date_modified`),
+
+    UNIQUE KEY `uindex_results_pupil_id_exam_id` (`pupil_id`, `exam_id`),
+
+    CONSTRAINT `fk_pupils_results_pupil_id` FOREIGN KEY (`pupil_id`) REFERENCES `pupils` (`pupil_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    CONSTRAINT `fk_exams_results_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exams` (`exam_id`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 
 
 
