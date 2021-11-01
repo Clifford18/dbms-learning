@@ -803,7 +803,7 @@ BEGIN
             VALUES (i, 3, @percentage_score);
             SET i = i + 1;
         END WHILE;
-    
+
 END$$
 DELIMITER ;
 CALL generate_percentage_score();
