@@ -707,7 +707,7 @@ CREATE TABLE `results`
 
     KEY `index_results_pupil_id` (`pupil_id`),
     KEY `index_results_exam_id` (`exam_id`),
-    KEY `index_results_exam_id` (`percentage_score`),
+    KEY `index_results_percentage_score` (`percentage_score`),
     KEY `index_results_date_created` (`date_created`),
     KEY `index_results_date_modified` (`date_modified`),
 
