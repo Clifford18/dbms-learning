@@ -112,12 +112,12 @@ CREATE TABLE `employees`
     KEY `index_employees_date_modified` (`date_modified`),
 
     UNIQUE KEY `uindex_employees_identification_value` (`identification_value`),
-
     UNIQUE KEY `uindex_employees_phone_number` (`phone_number`),
-
     UNIQUE KEY `uindex_employees_email_address` (`email_address`),
 
     CONSTRAINT `fk_genders_employees_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    CONSTRAINT `fk_identification_types_employees_identification_type` FOREIGN KEY (`identification_type`) REFERENCES `identification_types` (`identification_type`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
     CONSTRAINT `fk_departments_employees_gender` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -307,14 +307,14 @@ CREATE TABLE `dependants`
     KEY `index_dependants_date_modified` (`date_modified`),
 
     UNIQUE KEY `uindex_dependants_dependant_id_employee_id` (`dependant_id`, `employee_id`),
-
     UNIQUE KEY `uindex_dependants_identification_value` (`identification_value`),
-
     UNIQUE KEY `uindex_dependants_phone_number` (`phone_number`),
 
     CONSTRAINT `fk_employees_dependants_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    CONSTRAINT `fk_genders_dependants_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT `fk_genders_dependants_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
+
+    CONSTRAINT `fk_identification_types_dependants_identification_type` FOREIGN KEY (`identification_type`) REFERENCES `identification_types` (`identification_type`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 
