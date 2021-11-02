@@ -62,6 +62,25 @@ CREATE TABLE `departments`
 );
 
 
+DROP TABLE IF EXISTS `identification_types`;
+CREATE TABLE `identification_types`
+(
+    `identification_type` varchar(30) NOT NULL,
+    `date_created`        timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified`       timestamp   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (`identification_type`),
+
+    KEY `index_identification_types_date_created` (`date_created`),
+    KEY `index_identification_types_date_modified` (`date_modified`)
+);
+
+INSERT INTO identification_types (identification_type)
+VALUES ('id_number'),
+       ('alien_id_number'),
+       ('passport_number');
+
+
 DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees`
 (
@@ -70,7 +89,7 @@ CREATE TABLE `employees`
     `last_name`             varchar(30)                                  NOT NULL,
     `gender`                varchar(30)                                  NOT NULL,
     `id_number`             varchar(30)                                  NOT NULL,
-    `phone_number`          varchar(30)                                  NOT NULL,
+    `phone_number`          BIGINT(30)                                  NOT NULL,
     `email_address`         varchar(30)                                  NOT NULL,
     `date_of_birth`         date                                         NOT NULL,
     `department_name`       varchar(30)                                  NOT NULL,
