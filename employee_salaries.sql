@@ -88,8 +88,9 @@ CREATE TABLE `employees`
     `first_name`            varchar(30)                                  NOT NULL,
     `last_name`             varchar(30)                                  NOT NULL,
     `gender`                varchar(30)                                  NOT NULL,
-    `id_number`             varchar(30)                                  NOT NULL,
-    `phone_number`          BIGINT(30)                                  NOT NULL,
+    `identification_type`   varchar(30)                                  NOT NULL,
+    `identification_value`  varchar(30)                                  NOT NULL,
+    `phone_number`          bigint(30)                                   NOT NULL,
     `email_address`         varchar(30)                                  NOT NULL,
     `date_of_birth`         date                                         NOT NULL,
     `department_name`       varchar(30)                                  NOT NULL,
@@ -103,8 +104,6 @@ CREATE TABLE `employees`
     PRIMARY KEY (`employee_id`),
 
     KEY `index_employees_gender` (`gender`),
-    KEY `index_employees_phone_number` (`phone_number`),
-    KEY `index_employees_email_address` (`email_address`),
     KEY `index_employees_department_name` (`department_name`),
     KEY `index_employees_status` (`status`),
     KEY `index_employees_employment_start_date` (`employment_start_date`),
@@ -112,7 +111,11 @@ CREATE TABLE `employees`
     KEY `index_employees_date_created` (`date_created`),
     KEY `index_employees_date_modified` (`date_modified`),
 
-    UNIQUE KEY `uindex_employees_id_number` (`id_number`),
+    UNIQUE KEY `uindex_employees_identification_value` (`identification_value`),
+
+    UNIQUE KEY `uindex_employees_phone_number` (`phone_number`),
+
+    UNIQUE KEY `uindex_employees_email_address` (`email_address`),
 
     CONSTRAINT `fk_genders_employees_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
@@ -251,13 +254,13 @@ CREATE TABLE `skills`
 DROP TABLE IF EXISTS `employee_skills`;
 CREATE TABLE `employee_skills`
 (
-    `employee_skill_id` bigint                                                                 NOT NULL AUTO_INCREMENT,
-    `employee_id`       bigint                                                                 NOT NULL,
-    `skill_name`        varchar(30)                                                            NOT NULL,
-    `skill_level`       ENUM (' NOVIE','ADVANCED BEGINER','COMPITENT',' PRIFICIENT',' EXPERT') NOT NULL,
-    `date_acquired`     date                                                                            DEFAULT NULL,
-    `date_created`      timestamp                                                              NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `date_modified`     timestamp                                                              NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `employee_skill_id` bigint                                                                   NOT NULL AUTO_INCREMENT,
+    `employee_id`       bigint                                                                   NOT NULL,
+    `skill_name`        varchar(30)                                                              NOT NULL,
+    `skill_level`       ENUM (' NOVICE','ADVANCED BEGINNER','COMPETENT',' PROFICIENT',' EXPERT') NOT NULL,
+    `date_acquired`     date                                                                              DEFAULT NULL,
+    `date_created`      timestamp                                                                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `date_modified`     timestamp                                                                NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     PRIMARY KEY (`employee_skill_id`),
 
@@ -286,8 +289,9 @@ CREATE TABLE `dependants`
     `relationship`             ENUM (' FATHER','MOTHER','SPOUSE',' SISTER','BROTHER',' DAUGHTER','SON','EXTENDED FAMILY','FRIEND') NOT NULL,
     `relationship_description` ENUM ('NEXT OF KIN','FAMILY','FRIEND')                                                              NOT NULL,
     `date_of_birth`            date                                                                                                NOT NULL,
-    `id_number`                varchar(30)                                                                                                  DEFAULT NULL,
-    `phone_number`             varchar(30)                                                                                                  DEFAULT NULL,
+    `identification_type`      varchar(30)                                                                                         NOT NULL,
+    `identification_value`     varchar(30)                                                                                         NOT NULL,
+    `phone_number`             bigint(30)                                                                                          NOT NULL,
     `email_address`            varchar(30)                                                                                                  DEFAULT NULL,
     `date_created`             timestamp                                                                                           NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `date_modified`            timestamp                                                                                           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -298,13 +302,15 @@ CREATE TABLE `dependants`
     KEY `index_dependants_gender` (`gender`),
     KEY `index_dependants_relationship` (`relationship`),
     KEY `index_dependants_relationship_description` (`relationship_description`),
-    KEY `index_dependants_id_number` (`id_number`),
-    KEY `index_dependants_phone_number` (`phone_number`),
     KEY `index_dependants_email_address` (`email_address`),
     KEY `index_dependants_date_created` (`date_created`),
     KEY `index_dependants_date_modified` (`date_modified`),
 
     UNIQUE KEY `uindex_dependants_dependant_id_employee_id` (`dependant_id`, `employee_id`),
+
+    UNIQUE KEY `uindex_dependants_identification_value` (`identification_value`),
+
+    UNIQUE KEY `uindex_dependants_phone_number` (`phone_number`),
 
     CONSTRAINT `fk_employees_dependants_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
