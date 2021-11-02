@@ -95,10 +95,8 @@ CREATE TABLE `employees`
 
     UNIQUE KEY `uindex_employees_id_number` (`id_number`),
 
-    KEY `fk_genders_employees_gender` (`gender`),
     CONSTRAINT `fk_genders_employees_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_departments_employees_gender` (`department_name`),
     CONSTRAINT `fk_departments_employees_gender` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -139,13 +137,10 @@ CREATE TABLE `managers`
     KEY `index_managers_date_created` (`date_created`),
     KEY `index_managers_date_modified` (`date_modified`),
 
-    KEY `fk_employees_managers_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_managers_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_manager_descriptions_managers_manager_description` (`manager_description`),
     CONSTRAINT `fk_manager_descriptions_managers_manager_description` FOREIGN KEY (`manager_description`) REFERENCES `manager_descriptions` (`manager_description`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_departments_managers_department_name` (`department_name`),
     CONSTRAINT `fk_departments_managers_department_name` FOREIGN KEY (`department_name`) REFERENCES `departments` (`department_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -170,10 +165,8 @@ CREATE TABLE `performance_reviews`
     KEY `index_performance_reviews_date_created` (`date_created`),
     KEY `index_performance_reviews_date_modified` (`date_modified`),
 
-    KEY `fk_employees_performance_reviews_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_performance_reviews_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_managers_performance_reviews_manager_id` (`manager_id`),
     CONSTRAINT `fk_managers_performance_reviews_manager_id` FOREIGN KEY (`manager_id`) REFERENCES `managers` (`manager_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -215,10 +208,8 @@ CREATE TABLE `training_histories`
     KEY `index_training_histories_date_created` (`date_created`),
     KEY `index_training_histories_date_modified` (`date_modified`),
 
-    KEY `fk_employees_training_histories_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_training_histories_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_courses_training_histories_course_name` (`course_name`),
     CONSTRAINT `fk_courses_training_histories_course_name` FOREIGN KEY (`course_name`) REFERENCES `courses` (`course_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -260,10 +251,8 @@ CREATE TABLE `employee_skills`
 
     UNIQUE KEY `uindex_employee_skills_employee_id_skill_name` (`employee_id`, `skill_name`),
 
-    KEY `fk_employees_employee_skills_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_employee_skills_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_skills_employee_skills_skill_name` (`skill_name`),
     CONSTRAINT `fk_skills_employee_skills_skill_name` FOREIGN KEY (`skill_name`) REFERENCES `skills` (`skill_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -298,10 +287,8 @@ CREATE TABLE `dependants`
 
     UNIQUE KEY `uindex_dependants_dependant_id_employee_id` (`dependant_id`, `employee_id`),
 
-    KEY `fk_employees_dependants_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_dependants_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_genders_dependants_gender` (`gender`),
     CONSTRAINT `fk_genders_dependants_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -341,10 +328,8 @@ CREATE TABLE `employee_designations`
 
     UNIQUE KEY `uindex_employee_designations_employee_id_designation` (`employee_id`, `designation`),
 
-    KEY `fk_employees_employee_designations_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_employee_designations_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_designations_employee_designations_designation` (`designation`),
     CONSTRAINT `fk_designations_employee_designations_designation` FOREIGN KEY (`designation`) REFERENCES `designations` (`designation`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -389,10 +374,8 @@ CREATE TABLE `tasks`
     KEY `index_tasks_date_created` (`date_created`),
     KEY `index_tasks_date_modified` (`date_modified`),
 
-    KEY `fk_employees_tasks_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_tasks_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_projects_tasks_project_id` (`project_id`),
     CONSTRAINT `fk_projects_tasks_project_id` FOREIGN KEY (`project_id`) REFERENCES `projects` (`project_id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -430,10 +413,8 @@ CREATE TABLE `earnings`
     KEY `index_earnings_date_created` (`date_created`),
     KEY `index_earnings_date_modified` (`date_modified`),
 
-    KEY `fk_employees_earnings_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_earnings_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_earning_names_earnings_earning_name` (`earning_name`),
     CONSTRAINT `fk_earning_names_earnings_earning_name` FOREIGN KEY (`earning_name`) REFERENCES `earning_names` (`earning_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -471,9 +452,7 @@ CREATE TABLE `deductions`
     KEY `index_deductions_date_created` (`date_created`),
     KEY `index_deductions_date_modified` (`date_modified`),
 
-    KEY `fk_employees_deductions_employee_id` (`employee_id`),
     CONSTRAINT `fk_employees_deductions_employee_id` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
-    KEY `fk_deduction_names_deductions_deduction_name` (`deduction_name`),
     CONSTRAINT `fk_deduction_names_deductions_deduction_name` FOREIGN KEY (`deduction_name`) REFERENCES `deduction_names` (`deduction_name`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
