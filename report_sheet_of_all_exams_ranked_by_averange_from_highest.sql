@@ -5,7 +5,7 @@ SELECT full_name(p.first_name, p.last_name)      AS fullnames,
        r1.percentage_score                       AS exam1_score,
        r2.percentage_score                       AS exam2_score,
        r3.percentage_score                       AS exam3_score,
-       CAST((AVG(r.percentage_score)) AS SIGNED) AS averange_score
+       ROUND((AVG(r.percentage_score)),2) AS averange_score
 
 FROM results r
 
