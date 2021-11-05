@@ -167,12 +167,12 @@ CREATE TABLE `teachers`
 
     KEY `index_teachers_designation` (`designation`),
     KEY `index_teachers_gender` (`gender`),
-    KEY `index_teachers_phone_number` (`phone_number`),
-    KEY `index_teachers_email_address` (`email_address`),
     KEY `index_teachers_date_created` (`date_created`),
     KEY `index_teachers_date_modified` (`date_modified`),
 
     UNIQUE KEY `uindex_teachers_identification_value` (`identification_value`),
+    UNIQUE KEY `uindex_teachers_phone_number` (`phone_number`),
+    UNIQUE KEY `uindex_teachers_email_address` (`email_address`),
 
     CONSTRAINT `fk_genders_teachers_gender` FOREIGN KEY (`gender`) REFERENCES `genders` (`gender`) ON DELETE RESTRICT ON UPDATE CASCADE,
 
